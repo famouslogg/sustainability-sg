@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Resources — sustainability.sg</title>
+<meta name="description" content="Curated resources on Singapore sustainability: grants, regulations, frameworks, and agency links.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --green-deep:   #085041;
+    --green-mid:    #1D9E75;
+    --green-light:  #E1F5EE;
+    --green-pale:   #F4FBF8;
+    --ink:          #141A17;
+    --ink-mid:      #3D4F47;
+    --ink-light:    #7A9188;
+    --rule:         #D4E8E0;
+    --white:        #FFFFFF;
+    --amber:        #BA7517;
+    --amber-light:  #FAEEDA;
+  }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    color: var(--ink); background: var(--white);
+    font-size: 16px; line-height: 1.6;
+  }
+
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(255,255,255,0.96);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--rule);
+    padding: 0 2rem;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 60px;
+  }
+  .nav-logo {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 15px; font-weight: 500;
+    color: var(--green-deep); text-decoration: none;
+  }
+  .nav-logo span { color: var(--green-mid); }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a { font-size: 14px; color: var(--ink-mid); text-decoration: none; font-weight: 500; transition: color 0.15s; }
+  .nav-links a:hover { color: var(--green-mid); }
+  .nav-cta { background: var(--green-mid); color: var(--white) !important; padding: 7px 18px; border-radius: 6px; }
+  .nav-cta:hover { background: var(--green-deep) !important; }
+
+  .page-header {
+    background: var(--green-pale);
+    border-bottom: 1px solid var(--rule);
+    padding: 60px 2rem 48px;
+  }
+  .page-header-inner { max-width: 1100px; margin: 0 auto; }
+  .eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--ink-light); margin-bottom: 12px;
+  }
+  .page-header h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(32px, 4vw, 48px);
+    letter-spacing: -0.02em; line-height: 1.1;
+    margin-bottom: 14px;
+  }
+  .page-header p { font-size: 16px; color: var(--ink-mid); max-width: 520px; line-height: 1.7; }
+
+  /* FILTER BAR */
+  .filter-bar {
+    border-bottom: 1px solid var(--rule);
+    padding: 0 2rem;
+    display: flex; gap: 0; overflow-x: auto;
+  }
+  .filter-btn {
+    padding: 16px 20px; font-size: 14px; font-weight: 500;
+    background: none; border: none; border-bottom: 2px solid transparent;
+    cursor: pointer; color: var(--ink-mid);
+    white-space: nowrap; transition: all 0.15s;
+    font-family: 'Inter', sans-serif;
+  }
+  .filter-btn.active { color: var(--green-mid); border-bottom-color: var(--green-mid); }
+  .filter-btn:hover { color: var(--green-deep); }
+
+  /* CONTENT */
+  .content { max-width: 1100px; margin: 0 auto; padding: 48px 2rem 80px; }
+
+  .section-group { margin-bottom: 56px; }
+  .group-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--ink-light); margin-bottom: 6px;
+  }
+  .group-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 26px; letter-spacing: -0.01em;
+    margin-bottom: 24px; color: var(--ink);
+  }
+  .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
+  .resource-card {
+    background: var(--white);
+    border: 1px solid var(--rule);
+    border-radius: 12px; padding: 22px 24px;
+    text-decoration: none; color: inherit;
+    display: block; transition: border-color 0.15s, transform 0.15s;
+  }
+  .resource-card:hover { border-color: var(--green-mid); transform: translateY(-2px); }
+  .card-top { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 10px; gap: 12px; }
+  .card-tag {
+    font-size: 11px; font-weight: 500;
+    font-family: 'JetBrains Mono', monospace;
+    padding: 3px 10px; border-radius: 20px;
+    white-space: nowrap; flex-shrink: 0;
+  }
+  .tag-green { background: var(--green-light); color: var(--green-deep); }
+  .tag-amber { background: var(--amber-light); color: var(--amber); }
+  .tag-blue { background: #E6F1FB; color: #185FA5; }
+  .tag-gray { background: #F1EFE8; color: #5F5E5A; }
+  .resource-card h3 { font-size: 15px; font-weight: 600; margin-bottom: 8px; color: var(--ink); line-height: 1.3; }
+  .resource-card p { font-size: 13px; color: var(--ink-mid); line-height: 1.6; }
+  .card-agency { font-size: 12px; color: var(--ink-light); margin-top: 12px; font-weight: 500; }
+
+  /* CTA BAND */
+  .cta-band {
+    background: var(--green-deep); border-radius: 16px;
+    padding: 40px 48px; margin-top: 60px;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 32px; flex-wrap: wrap;
+  }
+  .cta-band h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 26px; color: var(--white); letter-spacing: -0.01em;
+  }
+  .cta-band p { font-size: 15px; color: rgba(255,255,255,0.65); margin-top: 6px; }
+  .btn-white {
+    background: var(--white); color: var(--green-deep);
+    padding: 13px 28px; border-radius: 8px;
+    font-size: 15px; font-weight: 600;
+    text-decoration: none; white-space: nowrap;
+    transition: transform 0.1s;
+    display: inline-block;
+  }
+  .btn-white:hover { transform: translateY(-1px); }
+
+  footer {
+    background: var(--ink); padding: 40px 2rem;
+    color: rgba(255,255,255,0.4);
+  }
+  .footer-inner {
+    max-width: 1100px; margin: 0 auto;
+    display: flex; justify-content: space-between;
+    align-items: center; flex-wrap: wrap; gap: 16px;
+  }
+  .footer-logo { font-family: 'JetBrains Mono', monospace; font-size: 15px; color: rgba(255,255,255,0.9); text-decoration: none; }
+  .footer-logo span { color: var(--green-mid); }
+  .footer-links { display: flex; gap: 24px; list-style: none; }
+  .footer-links a { color: rgba(255,255,255,0.4); text-decoration: none; font-size: 14px; transition: color 0.15s; }
+  .footer-links a:hover { color: var(--green-mid); }
+
+  @media (max-width: 768px) {
+    nav { padding: 0 1rem; }
+    .nav-links { display: none; }
+    .content { padding: 32px 1.5rem 60px; }
+    .cta-band { padding: 28px 24px; }
+    .footer-inner { flex-direction: column; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">sustainability<span>.sg</span></a>
+  <ul class="nav-links">
+    <li><a href="/resources.html">Resources</a></li>
+    <li><a href="/advisor.html">AI Advisor</a></li>
+    <li><a href="https://www.linkedin.com/in/nileshjadhav/" target="_blank" rel="noopener">About</a></li>
+    <li><a href="/advisor.html" class="nav-cta">Ask the Advisor</a></li>
+  </ul>
+</nav>
+
+<div class="page-header">
+  <div class="page-header-inner">
+    <div class="eyebrow">Singapore sustainability</div>
+    <h1>Regulations, grants, and frameworks</h1>
+    <p>A curated reference for businesses and sustainability professionals navigating Singapore's green transition.</p>
+  </div>
+</div>
+
+<div class="filter-bar">
+  <button class="filter-btn active" onclick="filter('all', this)">All</button>
+  <button class="filter-btn" onclick="filter('grants', this)">Grants and funding</button>
+  <button class="filter-btn" onclick="filter('buildings', this)">Green buildings</button>
+  <button class="filter-btn" onclick="filter('reporting', this)">ESG reporting</button>
+  <button class="filter-btn" onclick="filter('carbon', this)">Carbon and energy</button>
+  <button class="filter-btn" onclick="filter('agencies', this)">Agencies</button>
+</div>
+
+<div class="content">
+
+  <div class="section-group" data-cat="grants">
+    <div class="group-label">Funding</div>
+    <div class="group-title">Grants and financing schemes</div>
+    <div class="cards">
+      <a href="https://www.enterprisesg.gov.sg/financial-support/energy-efficiency-grant" target="_blank" rel="noopener" class="resource-card">
+        <div class="card-top">
+          <h3>Energy Efficiency Grant (EEG)</h3>
+          <span class="card-tag tag-green">SME</span>
+        </div>
+        <p>Up to 70% support for pre-approved energy-efficient equipment in food services, retail, and manufacturing sectors.</p>
+        <div class="card-agency">Enterprise Singapore</div>
+      </a>
+      <a href="https://www.ema.gov.sg/energy-supply/energy-efficiency/industry/grants-for-energy-efficiency" target="_blank" rel="noopener" class="resource-card">
+        <div class="card-top">
+          <h3>Energy Efficiency Fund (E2F)</h3>
+          <span class="card-tag tag-green">Industrial</span>
+        </div>
+        <p>Supports energy audits, engineering studies, and energy-efficient equipment for industrial facilities.</p>
+        <div class="card-agency">EMA</div>
+      </a>
+      <a href="https://www.bca.gov.sg/greenmark/green_mark_buildings.html" target="_blank" rel="noopener" class="resource-card">
+        <div class="card-top">
+          <h3>Building Retrofit Energy Efficiency Financing (BREEF)</h3>
+          <span class="card-tag tag-blue">Buildings</span>
+        </div>
+        <p>Green loan facility at preferential rates for energy-efficient building retrofits and upgrades.</p>
+        <div class="card-agency">BCA / Financial institutions</div>
+      </a>
+      <a href="https://www.nea.gov.sg/programmes-grants/grants/resource-efficiency-grant-for-environment" target="_blank" rel="noopener" class="resource-card">
+        <div class="card-top">
+          <h3>Resource Efficiency Grant for Environment (REG(E))</h3>
+          <span class="card-tag tag-green">Waste / Water</span>
+        </div>
+        <p>Supports projects that improve resource efficiency including waste reduction, water use, and energy in the manufacturing sector.</p>
+        <div class="card-agency">NEA</div>
+      </a>
+    </div>
+  </div>
+
+  <div class="section-group" data-cat="buildings">
+    <div class="group-label">Certification</div>
+    <div class="group-title">Green buildings</div>
+    <div class="cards">
+      <a href="https://www.bca.gov.sg/greenmark/green_mark_buildings.html" target="_blank" rel="noopener" class="resource-card">
+        <div class="card-top">
+          <h3>BCA Green Mark scheme</h3>
+          <span class="card-tag tag-green">Certification</span>
+        </div>
+        <p>Singapore's green building rating system. Certification levels: Certified, Gold, GoldPLUS, Platinum, and Platinum Super Low Energy (PSLE).</p>
+        <div class="card-agency">BCA</div>
+      </a>
+      <a href="https://www1.bca.gov.sg/buildsg/sustainability/green-building-masterplan" target="_blank" rel="noopener" class="resource-card">
+        <div class="card-top">
+          <h3>Green Building MasterPlan</h3>
+          <span class="card-tag tag-blue">Policy</span>
+        </div>
+        <p>4th edition masterplan targeting 80% of all buildings by GFA to be Green Mark certified by 2030.</p>
+        <div class="card-agency">BCA</div>
+      </a>
+      <a href="https://www.bca.gov.sg/greenmark/green_mark_new_buildings.html" target="_blank" rel="noopener" class="resource-card">
+        <div class="card-top">
+          <h3>Super Low Energy (SLE) programme</h3>
+          <span class="card-tag tag-green">Performance</span>
+        </div>
+        <p>Recognition for buildings achieving at least 60% energy improvement over 2005 baselines. Key target for public sector buildings.</p>
+        <div class="card-agency">BCA</div>
+      </a>
+      <a href="https://www1.bca.gov.sg/buildsg/sustainability/minimum-energy-performance-standards-meps" target="_blank" rel="noopener" class="resource-card">
+        <div class="card-top">
+          <h3>Green Lease Toolkit</h3>
+          <span class="card-tag tag-gray">Landlord / Tenant</span>
+        </div>
+        <p>Collaborative framework for landlords and tenants to align on energy management, data sharing, and sustainability targets.</p>
+        <div class="card-agency">BCA</div>
+      </a>
+    </div>
+  </div>
+
+  <div class="section-group" data-cat="reporting">
+    <div class="group-label">Disclosure</div>
+    <div class="group-title">ESG and sustainability reporting</div>
+    <div class="cards">
+      <a href="https://www.sgx.com/sustainable-finance/sustainability-reporting" target="_blank" rel="noopener" class="resource-card">
+        <div class="card-top">
+          <h3>SGX sustainability reporting</h3>
+          <span class="card-tag tag-blue">Listed companies</span>
+        </div>
+        <p>Mandatory for all SGX-listed companies since 2017. Climate-related disclosures aligned with TCFD phased in from FY2022 for large-cap.</p>
+        <div class="card-agency">SGX RegCo</div>
+      </a>
+      <a href="https://www.globalreporting.org/standards/" target="_blank" rel="noopener" class="resource-card">
+        <div class="card-top">
+          <h3>GRI Standards</h3>
+          <span class="card-tag tag-gray">Framework</span>
+        </div>
+        <p>The globally used framework for sustainability reporting. Singapore-listed companies commonly use GRI as the primary reference standard.</p>
+        <div class="card-agency">GRI</div>
+      </a>
+      <a href="https://www.ifrs.org/groups/international-sustainability-standards-board/" target="_blank" rel="noopener" class="resource-card">
+        <div class="card-top">
+          <h3>ISSB / IFRS S1 and S2</h3>
+          <span class="card-tag tag-amber">Mandatory upcoming</span>
+        </div>
+        <p>MAS has signalled adoption of IFRS S1 (general sustainability disclosures) and S2 (climate disclosures) for Singapore financial institutions.</p>
+        <div class="card-agency">ISSB / MAS</div>
+      </a>
+      <a href="https://www.mas.gov.sg/regulation/environmental-risk-management" target="_blank" rel="noopener" class="resource-card">
+        <div class="card-top">
+          <h3>MAS Environmental Risk Management</h3>
+          <span class="card-tag tag-blue">Financial sector</span>
+        </div>
+        <p>Guidelines for banks, insurers, and asset managers on managing environmental risk and integrating climate considerations into governance.</p>
+        <div class="card-agency">MAS</div>
+      </a>
+    </div>
+  </div>
+
+  <div class="section-group" data-cat="carbon">
+    <div class="group-label">Policy</div>
+    <div class="group-title">Carbon pricing and energy</div>
+    <div class="cards">
+      <a href="https://www.nea.gov.sg/our-services/pollution-control/air-pollution/carbon-tax" target="_blank" rel="noopener" class="resource-card">
+        <div class="card-top">
+          <h3>Singapore Carbon Tax</h3>
+          <span class="card-tag tag-amber">S$45/tonne in 2026</span>
+        </div>
+        <p>Applies to facilities emitting 25,000 tCO₂e or more per year. Rising to S$50–80/tonne by 2030 under the Carbon Pricing Act.</p>
+        <div class="card-agency">NEA</div>
+      </a>
+      <a href="https://www.ema.gov.sg/energy-supply/energy-efficiency/industry/energy-conservation-act" target="_blank" rel="noopener" class="resource-card">
+        <div class="card-top">
+          <h3>Energy Conservation Act (ECA)</h3>
+          <span class="card-tag tag-gray">Compliance</span>
+        </div>
+        <p>Mandatory energy management requirements for corporations consuming over 54 TJ/year. Includes annual reporting and energy efficiency improvement plans.</p>
+        <div class="card-agency">EMA</div>
+      </a>
+      <a href="https://www.ema.gov.sg/energy-supply/energy-efficiency/industry/singapore-certified-energy-manager" target="_blank" rel="noopener" class="resource-card">
+        <div class="card-top">
+          <h3>Singapore Certified Energy Manager (SCEM)</h3>
+          <span class="card-tag tag-green">Certification</span>
+        </div>
+        <p>Professional certification for energy managers in Singapore. Two levels: SCEM and SCEM (Registered). Required under ECA for qualifying companies.</p>
+        <div class="card-agency">EMA</div>
+      </a>
+      <a href="https://www.ema.gov.sg/energy-supply/solar-energy" target="_blank" rel="noopener" class="resource-card">
+        <div class="card-top">
+          <h3>Solar energy in Singapore</h3>
+          <span class="card-tag tag-green">Clean energy</span>
+        </div>
+        <p>Singapore's solar target is at least 2 GWp by 2030. SolarNova programme aggregates government demand. Options include rooftop, floating, and building-integrated PV.</p>
+        <div class="card-agency">EMA / HDB / BCA</div>
+      </a>
+    </div>
+  </div>
+
+  <div class="section-group" data-cat="agencies">
+    <div class="group-label">Agencies</div>
+    <div class="group-title">Key government agencies</div>
+    <div class="cards">
+      <a href="https://www.bca.gov.sg" target="_blank" rel="noopener" class="resource-card">
+        <div class="card-top"><h3>Building and Construction Authority (BCA)</h3><span class="card-tag tag-green">Buildings</span></div>
+        <p>Governs green building standards, Green Mark certification, and the built environment sustainability agenda.</p>
+        <div class="card-agency">bca.gov.sg</div>
+      </a>
+      <a href="https://www.ema.gov.sg" target="_blank" rel="noopener" class="resource-card">
+        <div class="card-top"><h3>Energy Market Authority (EMA)</h3><span class="card-tag tag-green">Energy</span></div>
+        <p>Regulates the energy sector, administers the Energy Conservation Act, SCEM certification, and energy efficiency grants.</p>
+        <div class="card-agency">ema.gov.sg</div>
+      </a>
+      <a href="https://www.nea.gov.sg" target="_blank" rel="noopener" class="resource-card">
+        <div class="card-top"><h3>National Environment Agency (NEA)</h3><span class="card-tag tag-green">Environment</span></div>
+        <p>Administers carbon tax under the Carbon Pricing Act, waste and resource management, and air quality regulations.</p>
+        <div class="card-agency">nea.gov.sg</div>
+      </a>
+      <a href="https://www.edb.gov.sg" target="_blank" rel="noopener" class="resource-card">
+        <div class="card-top"><h3>Economic Development Board (EDB)</h3><span class="card-tag tag-blue">Industry</span></div>
+        <p>Supports industrial decarbonisation, green investments, and sustainability-linked industry development programmes.</p>
+        <div class="card-agency">edb.gov.sg</div>
+      </a>
+      <a href="https://www.enterprisesg.gov.sg" target="_blank" rel="noopener" class="resource-card">
+        <div class="card-top"><h3>Enterprise Singapore</h3><span class="card-tag tag-amber">SME</span></div>
+        <p>Administers EEG and other SME support schemes. Key entry point for small businesses beginning their sustainability journey.</p>
+        <div class="card-agency">enterprisesg.gov.sg</div>
+      </a>
+      <a href="https://www.mas.gov.sg" target="_blank" rel="noopener" class="resource-card">
+        <div class="card-top"><h3>Monetary Authority of Singapore (MAS)</h3><span class="card-tag tag-blue">Finance</span></div>
+        <p>Drives Singapore's sustainable finance agenda including green taxonomy, ESG disclosure requirements for financial institutions.</p>
+        <div class="card-agency">mas.gov.sg</div>
+      </a>
+    </div>
+  </div>
+
+  <div class="cta-band">
+    <div>
+      <h2>Can't find what you need?</h2>
+      <p>Ask the AI Advisor — it knows Singapore's sustainability landscape in depth.</p>
+    </div>
+    <a href="/advisor.html" class="btn-white">Open the Advisor</a>
+  </div>
+
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <a href="/" class="footer-logo">sustainability<span>.sg</span></a>
+    <ul class="footer-links">
+      <li><a href="/resources.html">Resources</a></li>
+      <li><a href="/advisor.html">AI Advisor</a></li>
+      <li><a href="https://www.linkedin.com/in/nileshjadhav/" target="_blank" rel="noopener">LinkedIn</a></li>
+    </ul>
+  </div>
+</footer>
+
+<script>
+function filter(cat, btn) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.section-group').forEach(g => {
+    g.style.display = (cat === 'all' || g.dataset.cat === cat) ? '' : 'none';
+  });
+}
+</script>
+
+</body>
+</html>

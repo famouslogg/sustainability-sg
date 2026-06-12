@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>sustainability.sg — Singapore's Sustainability Resource</title>
+<meta name="description" content="Your guide to sustainability in Singapore: green building regulations, energy grants, carbon tax, ESG reporting, and expert advisory.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --green-deep:   #085041;
+    --green-mid:    #1D9E75;
+    --green-light:  #E1F5EE;
+    --green-pale:   #F4FBF8;
+    --ink:          #141A17;
+    --ink-mid:      #3D4F47;
+    --ink-light:    #7A9188;
+    --rule:         #D4E8E0;
+    --white:        #FFFFFF;
+    --amber:        #BA7517;
+    --amber-light:  #FAEEDA;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    color: var(--ink);
+    background: var(--white);
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  /* NAV */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(255,255,255,0.96);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--rule);
+    padding: 0 2rem;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 60px;
+  }
+  .nav-logo {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 15px; font-weight: 500;
+    color: var(--green-deep);
+    text-decoration: none;
+    letter-spacing: -0.02em;
+  }
+  .nav-logo span { color: var(--green-mid); }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    font-size: 14px; color: var(--ink-mid);
+    text-decoration: none; font-weight: 500;
+    transition: color 0.15s;
+  }
+  .nav-links a:hover { color: var(--green-mid); }
+  .nav-cta {
+    background: var(--green-mid);
+    color: var(--white) !important;
+    padding: 7px 18px;
+    border-radius: 6px;
+    font-size: 14px !important;
+    transition: background 0.15s !important;
+  }
+  .nav-cta:hover { background: var(--green-deep) !important; color: var(--white) !important; }
+
+  /* HERO */
+  .hero {
+    padding: 100px 2rem 80px;
+    max-width: 1100px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
+  }
+  .hero-eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px; font-weight: 500;
+    color: var(--green-mid);
+    letter-spacing: 0.1em; text-transform: uppercase;
+    margin-bottom: 20px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .hero-eyebrow::before {
+    content: '';
+    display: inline-block; width: 24px; height: 1px;
+    background: var(--green-mid);
+  }
+  .hero h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(38px, 5vw, 58px);
+    line-height: 1.1;
+    color: var(--ink);
+    letter-spacing: -0.02em;
+    margin-bottom: 24px;
+  }
+  .hero h1 em {
+    font-style: italic;
+    color: var(--green-mid);
+  }
+  .hero-sub {
+    font-size: 17px; color: var(--ink-mid);
+    line-height: 1.7; margin-bottom: 36px;
+    max-width: 480px;
+  }
+  .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--green-mid); color: var(--white);
+    padding: 13px 28px; border-radius: 8px;
+    font-size: 15px; font-weight: 500;
+    text-decoration: none;
+    transition: background 0.15s, transform 0.1s;
+    display: inline-block;
+  }
+  .btn-primary:hover { background: var(--green-deep); transform: translateY(-1px); }
+  .btn-secondary {
+    background: transparent; color: var(--ink);
+    padding: 13px 28px; border-radius: 8px;
+    font-size: 15px; font-weight: 500;
+    text-decoration: none; border: 1px solid var(--rule);
+    transition: border-color 0.15s, transform 0.1s;
+    display: inline-block;
+  }
+  .btn-secondary:hover { border-color: var(--green-mid); color: var(--green-deep); transform: translateY(-1px); }
+
+  /* STAT CARD (hero right) */
+  .hero-stats {
+    background: var(--green-pale);
+    border: 1px solid var(--rule);
+    border-radius: 16px;
+    padding: 36px;
+  }
+  .hero-stats-label {
+    font-size: 12px; font-weight: 500; text-transform: uppercase;
+    letter-spacing: 0.08em; color: var(--ink-light);
+    margin-bottom: 24px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .stat-row {
+    display: flex; flex-direction: column;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .stat-row:last-child { border-bottom: none; padding-bottom: 0; }
+  .stat-row:first-of-type { padding-top: 0; }
+  .stat-number {
+    font-family: 'DM Serif Display', serif;
+    font-size: 32px; color: var(--green-deep);
+    line-height: 1;
+  }
+  .stat-desc { font-size: 13px; color: var(--ink-mid); margin-top: 4px; }
+  .stat-tag {
+    display: inline-block; margin-top: 6px;
+    font-size: 11px; font-weight: 500;
+    font-family: 'JetBrains Mono', monospace;
+    background: var(--green-light);
+    color: var(--green-deep);
+    padding: 2px 8px; border-radius: 4px;
+    align-self: flex-start;
+  }
+  .stat-tag.amber { background: var(--amber-light); color: var(--amber); }
+
+  /* SECTION SHARED */
+  section { padding: 80px 2rem; }
+  .section-inner { max-width: 1100px; margin: 0 auto; }
+  .section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; font-weight: 500; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--ink-light);
+    margin-bottom: 10px;
+  }
+  .section-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(28px, 3.5vw, 40px);
+    color: var(--ink); letter-spacing: -0.02em;
+    margin-bottom: 16px; line-height: 1.15;
+  }
+  .section-sub {
+    font-size: 16px; color: var(--ink-mid);
+    max-width: 560px; line-height: 1.7;
+  }
+
+  /* TOPICS GRID */
+  .topics-section { background: var(--green-pale); border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+  .topics-header { margin-bottom: 48px; }
+  .topics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+  }
+  .topic-card {
+    background: var(--white);
+    border: 1px solid var(--rule);
+    border-radius: 12px;
+    padding: 28px;
+    transition: border-color 0.2s, transform 0.2s;
+    text-decoration: none; color: inherit;
+    display: block;
+  }
+  .topic-card:hover { border-color: var(--green-mid); transform: translateY(-2px); }
+  .topic-icon {
+    width: 44px; height: 44px;
+    background: var(--green-light);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 16px;
+    font-size: 22px;
+  }
+  .topic-card h3 {
+    font-size: 16px; font-weight: 600; margin-bottom: 8px;
+    color: var(--ink);
+  }
+  .topic-card p { font-size: 14px; color: var(--ink-mid); line-height: 1.6; }
+  .topic-tag {
+    display: inline-block; margin-top: 14px;
+    font-size: 11px; font-weight: 500;
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--green-mid);
+  }
+
+  /* AI ADVISOR SECTION */
+  .advisor-section { background: var(--white); }
+  .advisor-inner {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 60px; align-items: center;
+  }
+  .advisor-visual {
+    background: var(--ink);
+    border-radius: 16px; padding: 32px;
+    position: relative; overflow: hidden;
+  }
+  .advisor-visual::before {
+    content: '';
+    position: absolute; top: -40px; right: -40px;
+    width: 200px; height: 200px;
+    background: var(--green-mid);
+    border-radius: 50%; opacity: 0.12;
+  }
+  .chat-preview { position: relative; z-index: 1; }
+  .chat-msg {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 10px; padding: 14px 16px;
+    margin-bottom: 12px;
+    font-size: 13px; color: rgba(255,255,255,0.85);
+    line-height: 1.6;
+  }
+  .chat-msg.user {
+    background: var(--green-mid);
+    border-color: transparent;
+    color: var(--white);
+    text-align: right;
+  }
+  .chat-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; letter-spacing: 0.08em;
+    color: rgba(255,255,255,0.4);
+    margin-bottom: 6px; text-transform: uppercase;
+  }
+  .chat-label.right { text-align: right; }
+  .advisor-features { list-style: none; margin-top: 28px; display: flex; flex-direction: column; gap: 12px; }
+  .advisor-features li {
+    display: flex; align-items: flex-start; gap: 12px;
+    font-size: 15px; color: var(--ink-mid); line-height: 1.5;
+  }
+  .feat-dot {
+    width: 20px; height: 20px; border-radius: 50%;
+    background: var(--green-light);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; margin-top: 2px;
+    font-size: 11px; color: var(--green-deep);
+  }
+
+  /* RESOURCES STRIP */
+  .resources-strip { background: var(--green-pale); border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+  .resources-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px; margin-top: 40px;
+  }
+  .resource-pill {
+    background: var(--white);
+    border: 1px solid var(--rule);
+    border-radius: 10px; padding: 18px 20px;
+    display: flex; align-items: center; gap: 14px;
+    text-decoration: none; color: inherit;
+    transition: border-color 0.15s;
+  }
+  .resource-pill:hover { border-color: var(--green-mid); }
+  .resource-pill-icon {
+    font-size: 20px; width: 36px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .resource-pill-text strong { display: block; font-size: 14px; font-weight: 500; }
+  .resource-pill-text span { font-size: 12px; color: var(--ink-light); }
+
+  /* FOOTER */
+  footer {
+    background: var(--ink);
+    padding: 48px 2rem;
+    color: rgba(255,255,255,0.5);
+  }
+  .footer-inner {
+    max-width: 1100px; margin: 0 auto;
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 20px;
+  }
+  .footer-logo {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 15px; color: rgba(255,255,255,0.9);
+    text-decoration: none;
+  }
+  .footer-logo span { color: var(--green-mid); }
+  .footer-links { display: flex; gap: 24px; list-style: none; }
+  .footer-links a { color: rgba(255,255,255,0.4); text-decoration: none; font-size: 14px; transition: color 0.15s; }
+  .footer-links a:hover { color: var(--green-mid); }
+  .footer-copy { font-size: 13px; }
+
+  /* MOBILE */
+  @media (max-width: 768px) {
+    nav { padding: 0 1rem; }
+    .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr; padding: 60px 1.5rem 50px; gap: 40px; }
+    .hero-stats { display: none; }
+    .advisor-inner { grid-template-columns: 1fr; }
+    .advisor-visual { display: none; }
+    section { padding: 60px 1.5rem; }
+    .footer-inner { flex-direction: column; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">sustainability<span>.sg</span></a>
+  <ul class="nav-links">
+    <li><a href="/resources.html">Resources</a></li>
+    <li><a href="/advisor.html">AI Advisor</a></li>
+    <li><a href="https://www.linkedin.com/in/nileshjadhav/" target="_blank" rel="noopener">About</a></li>
+    <li><a href="/advisor.html" class="nav-cta">Ask the Advisor</a></li>
+  </ul>
+</nav>
+
+<main>
+
+  <!-- HERO -->
+  <section class="hero" style="padding-top:100px; padding-bottom:80px; max-width:unset;">
+    <div style="max-width:1100px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center; width:100%;">
+      <div>
+        <div class="hero-eyebrow">Singapore Sustainability</div>
+        <h1>Navigate the <em>green transition</em> with confidence</h1>
+        <p class="hero-sub">Singapore's carbon tax is rising. Green Mark requirements are tightening. ESG reporting is becoming mandatory. This site cuts through the complexity so you can act.</p>
+        <div class="hero-actions">
+          <a href="/advisor.html" class="btn-primary">Ask the AI Advisor</a>
+          <a href="/resources.html" class="btn-secondary">Browse resources</a>
+        </div>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stats-label">Singapore at a glance — 2026</div>
+        <div class="stat-row">
+          <div class="stat-number">S$45</div>
+          <div class="stat-desc">Carbon tax per tonne CO₂e, rising to S$50–80 by 2030</div>
+          <span class="stat-tag amber">Carbon tax</span>
+        </div>
+        <div class="stat-row">
+          <div class="stat-number">80%</div>
+          <div class="stat-desc">Of all buildings to be Green Mark certified by 2030</div>
+          <span class="stat-tag">Green Plan 2030</span>
+        </div>
+        <div class="stat-row">
+          <div class="stat-number">2050</div>
+          <div class="stat-desc">Singapore's net zero target under the Long-Term Low Emissions Development Strategy</div>
+          <span class="stat-tag">Net zero</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TOPICS -->
+  <section class="topics-section">
+    <div class="section-inner">
+      <div class="topics-header">
+        <div class="section-label">Key topics</div>
+        <h2 class="section-title">What do you need to know?</h2>
+        <p class="section-sub">From green building certifications to ESG disclosures, find the guidance that's relevant to your situation.</p>
+      </div>
+      <div class="topics-grid">
+        <a href="/advisor.html?q=green+mark" class="topic-card">
+          <div class="topic-icon">🏢</div>
+          <h3>BCA Green Mark</h3>
+          <p>Certification levels, requirements, application process, and incentives for new and existing buildings.</p>
+          <span class="topic-tag">→ Green buildings</span>
+        </a>
+        <a href="/advisor.html?q=carbon+tax" class="topic-card">
+          <div class="topic-icon">🌡️</div>
+          <h3>Carbon tax</h3>
+          <p>Singapore's carbon pricing trajectory, who it applies to, and how to reduce your liability.</p>
+          <span class="topic-tag">→ Carbon pricing</span>
+        </a>
+        <a href="/advisor.html?q=energy+efficiency+grants" class="topic-card">
+          <div class="topic-icon">⚡</div>
+          <h3>Energy grants</h3>
+          <p>EEG, E2F, BREEF and other schemes from EMA and Enterprise Singapore to fund your energy transition.</p>
+          <span class="topic-tag">→ Funding</span>
+        </a>
+        <a href="/advisor.html?q=ESG+reporting+Singapore" class="topic-card">
+          <div class="topic-icon">📊</div>
+          <h3>ESG reporting</h3>
+          <p>SGX mandatory disclosures, GRI standards, TCFD/ISSB frameworks, and what's required for your company size.</p>
+          <span class="topic-tag">→ Reporting</span>
+        </a>
+        <a href="/advisor.html?q=solar+Singapore" class="topic-card">
+          <div class="topic-icon">☀️</div>
+          <h3>Solar in Singapore</h3>
+          <p>Rooftop and floating solar options, SolarNova programme, PPAs, and what works for HDB, commercial, and industrial.</p>
+          <span class="topic-tag">→ Clean energy</span>
+        </a>
+        <a href="/advisor.html?q=scope+1+2+3+emissions" class="topic-card">
+          <div class="topic-icon">🔄</div>
+          <h3>Emissions accounting</h3>
+          <p>Scope 1, 2, and 3 definitions, boundary-setting, data collection, and third-party verification.</p>
+          <span class="topic-tag">→ GHG accounting</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- AI ADVISOR -->
+  <section class="advisor-section">
+    <div class="section-inner">
+      <div class="advisor-inner">
+        <div>
+          <div class="section-label">AI-powered</div>
+          <h2 class="section-title">Your sustainability questions, answered instantly</h2>
+          <p class="section-sub">The AI Advisor is trained on Singapore's sustainability landscape: BCA, EMA, NEA, EDB regulations, grants, and frameworks. Ask it anything.</p>
+          <ul class="advisor-features">
+            <li>
+              <div class="feat-dot">✓</div>
+              Knows Singapore's grant schemes and eligibility criteria
+            </li>
+            <li>
+              <div class="feat-dot">✓</div>
+              Up to date on carbon tax trajectory and Energy Conservation Act
+            </li>
+            <li>
+              <div class="feat-dot">✓</div>
+              Guides you through Green Mark, GRI, TCFD, and ISSB requirements
+            </li>
+            <li>
+              <div class="feat-dot">✓</div>
+              Plain English answers, no jargon unless you want it
+            </li>
+          </ul>
+          <a href="/advisor.html" class="btn-primary" style="margin-top:32px; display:inline-block;">Open the Advisor</a>
+        </div>
+        <div class="advisor-visual">
+          <div class="chat-preview">
+            <div class="chat-label right">You</div>
+            <div class="chat-msg user">What grants can I apply for to upgrade my building's energy systems?</div>
+            <div class="chat-label">Advisor</div>
+            <div class="chat-msg">Several schemes apply. For SMEs, the Energy Efficiency Grant (EEG) from Enterprise Singapore covers up to 70% of qualifying costs for pre-approved energy-efficient equipment. For larger industrials, EMA's Energy Efficiency Fund (E2F) supports audits and retrofits. If you're refinancing the upgrade, BREEF provides green loans at preferential rates. Eligibility depends on your sector and building type — shall I walk through which fits your situation?</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESOURCES STRIP -->
+  <section class="resources-strip">
+    <div class="section-inner">
+      <div class="section-label">Quick links</div>
+      <h2 class="section-title">Key Singapore agencies</h2>
+      <div class="resources-grid">
+        <a href="https://www.bca.gov.sg" target="_blank" rel="noopener" class="resource-pill">
+          <div class="resource-pill-icon">🏛️</div>
+          <div class="resource-pill-text"><strong>BCA</strong><span>Green Mark, building codes</span></div>
+        </a>
+        <a href="https://www.ema.gov.sg" target="_blank" rel="noopener" class="resource-pill">
+          <div class="resource-pill-icon">⚡</div>
+          <div class="resource-pill-text"><strong>EMA</strong><span>Energy policy, SCEM, solar</span></div>
+        </a>
+        <a href="https://www.nea.gov.sg" target="_blank" rel="noopener" class="resource-pill">
+          <div class="resource-pill-icon">🌿</div>
+          <div class="resource-pill-text"><strong>NEA</strong><span>Carbon tax, waste, air quality</span></div>
+        </a>
+        <a href="https://www.edb.gov.sg" target="_blank" rel="noopener" class="resource-pill">
+          <div class="resource-pill-icon">🏭</div>
+          <div class="resource-pill-text"><strong>EDB</strong><span>Industrial decarbonisation</span></div>
+        </a>
+        <a href="https://www.enterprisesg.gov.sg" target="_blank" rel="noopener" class="resource-pill">
+          <div class="resource-pill-icon">💼</div>
+          <div class="resource-pill-text"><strong>EnterpriseSG</strong><span>SME grants and support</span></div>
+        </a>
+        <a href="https://www.mas.gov.sg/development/sustainable-finance" target="_blank" rel="noopener" class="resource-pill">
+          <div class="resource-pill-icon">🏦</div>
+          <div class="resource-pill-text"><strong>MAS</strong><span>Green finance, ESG disclosure</span></div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <a href="/" class="footer-logo">sustainability<span>.sg</span></a>
+    <ul class="footer-links">
+      <li><a href="/resources.html">Resources</a></li>
+      <li><a href="/advisor.html">AI Advisor</a></li>
+      <li><a href="https://www.linkedin.com/in/nileshjadhav/" target="_blank" rel="noopener">LinkedIn</a></li>
+    </ul>
+    <p class="footer-copy">AI responses are informational. Consult qualified professionals for compliance decisions.</p>
+  </div>
+</footer>
+
+</body>
+</html>
