@@ -426,5 +426,227 @@ function filter(cat, btn) {
 }
 </script>
 
+ <!-- CHAT WIDGET -->
+<style>
+  #cw-btn {
+    position: fixed; bottom: 28px; right: 28px; z-index: 9999;
+    width: 58px; height: 58px; border-radius: 50%;
+    background: #1D9E75; border: none; cursor: pointer;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.15s, transform 0.15s;
+  }
+  #cw-btn:hover { background: #085041; transform: scale(1.07); }
+  #cw-btn svg { width: 26px; height: 26px; fill: none; stroke: #fff; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  #cw-tooltip {
+    position: fixed; bottom: 96px; right: 28px; z-index: 9998;
+    background: #141A17; color: #fff;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px; padding: 7px 14px;
+    border-radius: 8px; white-space: nowrap;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.2s;
+  }
+  #cw-btn:hover + #cw-tooltip, #cw-tooltip:hover { opacity: 1; }
+  #cw-panel {
+    position: fixed; bottom: 96px; right: 28px; z-index: 9997;
+    width: 360px; height: 480px;
+    background: #fff; border-radius: 16px;
+    border: 1px solid #D4E8E0;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.14);
+    display: none; flex-direction: column;
+    overflow: hidden;
+    font-family: 'Inter', sans-serif;
+  }
+  #cw-panel.open { display: flex; }
+  #cw-head {
+    background: #085041; padding: 16px 18px;
+    display: flex; align-items: center; gap: 12px;
+    flex-shrink: 0;
+  }
+  #cw-head .cw-avatar {
+    width: 36px; height: 36px; border-radius: 50%;
+    background: #1D9E75;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; flex-shrink: 0;
+  }
+  #cw-head .cw-info { flex: 1; }
+  #cw-head .cw-name { font-size: 14px; font-weight: 600; color: #fff; }
+  #cw-head .cw-status { font-size: 11px; color: #9FE1CB; }
+  #cw-close {
+    background: none; border: none; cursor: pointer;
+    color: rgba(255,255,255,0.6); font-size: 22px; line-height: 1;
+    padding: 0; transition: color 0.15s;
+  }
+  #cw-close:hover { color: #fff; }
+  #cw-msgs {
+    flex: 1; overflow-y: auto;
+    padding: 16px; display: flex;
+    flex-direction: column; gap: 12px;
+    scroll-behavior: smooth;
+  }
+  .cw-msg { display: flex; gap: 8px; max-width: 90%; }
+  .cw-msg.cw-user { align-self: flex-end; flex-direction: row-reverse; }
+  .cw-bubble {
+    padding: 9px 13px; border-radius: 14px;
+    font-size: 13px; line-height: 1.6;
+    white-space: pre-wrap;
+  }
+  .cw-msg.cw-bot .cw-bubble {
+    background: #F4FBF8; border: 1px solid #D4E8E0;
+    border-radius: 4px 14px 14px 14px; color: #141A17;
+  }
+  .cw-msg.cw-user .cw-bubble {
+    background: #1D9E75; color: #fff;
+    border-radius: 14px 4px 14px 14px;
+  }
+  .cw-typing { display: flex; gap: 4px; align-items: center; padding: 9px 13px; }
+  .cw-typing span {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: #1D9E75; animation: cwbounce 1.2s infinite;
+  }
+  .cw-typing span:nth-child(2) { animation-delay: 0.2s; }
+  .cw-typing span:nth-child(3) { animation-delay: 0.4s; }
+  @keyframes cwbounce {
+    0%,80%,100% { transform: translateY(0); opacity:0.5; }
+    40% { transform: translateY(-5px); opacity:1; }
+  }
+  #cw-foot {
+    padding: 12px 14px; border-top: 1px solid #D4E8E0;
+    display: flex; gap: 8px; align-items: flex-end;
+    flex-shrink: 0;
+  }
+  #cw-input {
+    flex: 1; resize: none; border: 1px solid #D4E8E0;
+    border-radius: 8px; padding: 9px 12px;
+    font-size: 13px; font-family: 'Inter', sans-serif;
+    line-height: 1.5; color: #141A17;
+    background: #F4FBF8; min-height: 38px;
+    max-height: 90px; outline: none;
+    transition: border-color 0.15s;
+  }
+  #cw-input:focus { border-color: #1D9E75; background: #fff; }
+  #cw-input::placeholder { color: #7A9188; }
+  #cw-send {
+    width: 38px; height: 38px; border-radius: 50%;
+    background: #1D9E75; border: none; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; transition: background 0.15s;
+    font-size: 16px; color: #fff;
+  }
+  #cw-send:hover { background: #085041; }
+  #cw-send:disabled { background: #D4E8E0; cursor: not-allowed; }
+  #cw-disclaimer {
+    text-align: center; font-size: 10px;
+    color: #7A9188; padding: 0 14px 10px;
+    flex-shrink: 0;
+  }
+  @media (max-width: 480px) {
+    #cw-panel { width: calc(100vw - 24px); right: 12px; bottom: 80px; }
+    #cw-btn { bottom: 16px; right: 16px; }
+    #cw-tooltip { display: none; }
+  }
+</style>
+
+<button id="cw-btn" aria-label="Open sustainability advisor chat" onclick="cwToggle()">
+  <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+</button>
+<div id="cw-tooltip">Ask the Advisor</div>
+
+<div id="cw-panel" role="dialog" aria-label="Sustainability Advisor chat">
+  <div id="cw-head">
+    <div class="cw-avatar">🌿</div>
+    <div class="cw-info">
+      <div class="cw-name">Sustainability Advisor</div>
+      <div class="cw-status">sustainability.sg</div>
+    </div>
+    <button id="cw-close" onclick="cwToggle()" aria-label="Close chat">&#x2715;</button>
+  </div>
+  <div id="cw-msgs">
+    <div class="cw-msg cw-bot">
+      <div class="cw-bubble">Hi! Ask me anything about sustainability in Singapore — grants, Green Mark, carbon tax, ESG reporting, and more.</div>
+    </div>
+  </div>
+  <div id="cw-foot">
+    <textarea id="cw-input" placeholder="Ask a question..." rows="1"></textarea>
+    <button id="cw-send" onclick="cwSend()" aria-label="Send">&#9658;</button>
+  </div>
+  <div id="cw-disclaimer">Powered by Claude AI — sustainability.sg</div>
+</div>
+
+<script>
+const CW_SYSTEM = `You are a concise Singapore Sustainability Advisor. Answer questions about Singapore's sustainability landscape: BCA Green Mark, carbon tax (S$45/tonne in 2026, rising to S$50-80 by 2030), energy efficiency grants (EEG, E2F, BREEF), ESG/GRI reporting, SGX sustainability disclosures, NEA, EMA, EDB, Enterprise Singapore schemes, solar energy, Scope 1/2/3 emissions, and Singapore Green Plan 2030. Be brief and practical — this is a chat widget, keep responses under 120 words. If the question needs a longer answer, give the key points and suggest visiting the full Advisor page at /advisor.html.`;
+
+let cwHistory = [];
+let cwLoading = false;
+
+function cwToggle() {
+  const panel = document.getElementById('cw-panel');
+  panel.classList.toggle('open');
+  if (panel.classList.contains('open')) {
+    setTimeout(() => document.getElementById('cw-input').focus(), 100);
+  }
+}
+
+document.getElementById('cw-input').addEventListener('keydown', e => {
+  if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); cwSend(); }
+});
+
+document.getElementById('cw-input').addEventListener('input', function() {
+  this.style.height = 'auto';
+  this.style.height = Math.min(this.scrollHeight, 90) + 'px';
+});
+
+function cwAddMsg(role, text) {
+  const msgs = document.getElementById('cw-msgs');
+  const div = document.createElement('div');
+  div.className = 'cw-msg ' + (role === 'user' ? 'cw-user' : 'cw-bot');
+  div.innerHTML = '<div class="cw-bubble"></div>';
+  div.querySelector('.cw-bubble').textContent = text;
+  msgs.appendChild(div);
+  msgs.scrollTop = msgs.scrollHeight;
+}
+
+function cwAddTyping() {
+  const msgs = document.getElementById('cw-msgs');
+  const div = document.createElement('div');
+  div.className = 'cw-msg cw-bot'; div.id = 'cw-typing';
+  div.innerHTML = '<div class="cw-bubble"><div class="cw-typing"><span></span><span></span><span></span></div></div>';
+  msgs.appendChild(div);
+  msgs.scrollTop = msgs.scrollHeight;
+}
+
+async function cwSend() {
+  const input = document.getElementById('cw-input');
+  const text = input.value.trim();
+  if (!text || cwLoading) return;
+  cwLoading = true;
+  document.getElementById('cw-send').disabled = true;
+  input.value = ''; input.style.height = 'auto';
+  cwAddMsg('user', text);
+  cwHistory.push({ role: 'user', content: text });
+  cwAddTyping();
+  try {
+    const res = await fetch('/api/chat', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ system: CW_SYSTEM, messages: cwHistory.slice(-6) })
+    });
+    const data = await res.json();
+    const reply = data.content?.[0]?.text || 'Sorry, something went wrong. Please try again.';
+    document.getElementById('cw-typing')?.remove();
+    cwAddMsg('bot', reply);
+    cwHistory.push({ role: 'assistant', content: reply });
+  } catch {
+    document.getElementById('cw-typing')?.remove();
+    cwAddMsg('bot', 'Sorry, something went wrong. Please try again.');
+  }
+  cwLoading = false;
+  document.getElementById('cw-send').disabled = false;
+  input.focus();
+}
+</script>
+<!-- END CHAT WIDGET -->
+
 </body>
 </html>
