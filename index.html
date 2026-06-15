@@ -692,6 +692,17 @@ function cwToggle() {
   }
 }
 
+// Auto-open for first-time visitors only
+window.addEventListener('load', () => {
+  if (!localStorage.getItem('ssg_visited')) {
+    setTimeout(() => {
+      document.getElementById('cw-panel').classList.add('open');
+      setTimeout(() => document.getElementById('cw-input').focus(), 100);
+    }, 1800);
+    localStorage.setItem('ssg_visited', '1');
+  }
+});
+
 document.getElementById('cw-input').addEventListener('keydown', e => {
   if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); cwSend(); }
 });
