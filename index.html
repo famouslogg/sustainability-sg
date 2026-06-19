@@ -815,14 +815,25 @@ async function loadSubstackPosts() {
       return;
     }
 
-    container.innerHTML = items.map(item => {
+container.innerHTML = items.map(item => {
       const title = item.querySelector('title')?.textContent || '';
       const link = item.querySelector('link')?.nextSibling?.textContent?.trim() || item.querySelector('link')?.textContent || '#';
       const pubDate = item.querySelector('pubDate')?.textContent || '';
       const desc = item.querySelector('description')?.textContent?.replace(/<[^>]+>/g, '').trim().slice(0, 120) + '...' || '';
       const date = pubDate ? new Date(pubDate).toLocaleDateString('en-SG', { day: 'numeric', month: 'short', year: 'numeric' }) : '';
+
+      // Try multiple image sources from RSS
+      const mediaContent = item.getElementsByTagNameNS('*', 'content')[0]?.getAttribute('url') || '';
+      const enclosure = item.querySelector('enclosure')?.getAttribute('url') || '';
+      const descHtml = item.querySelector('description')?.textContent || '';
+      const imgInDesc = descHtml.match(/src="([^"]+\.(jpg|jpeg|png|webp))"/i)?.[1] || '';
+      const image = mediaContent || enclosure || imgInDesc;
+
       return `
         <a href="${link}" target="_blank" rel="noopener" class="insight-post">
+          ${image ? `<div class="insight-post-img" style="width:100%; height:120px; border-radius:8px; overflow:hidden; margin-bottom:10px; background:#F4FBF8;">
+            <img src="${image}" alt="${title}" style="width:100%; height:100%; object-fit:cover;">
+          </div>` : ''}
           <div class="insight-post-date">${date}</div>
           <div class="insight-post-title">${title}</div>
           <div class="insight-post-desc">${desc}</div>
