@@ -805,7 +805,7 @@ async function loadSubstackPosts() {
   const container = document.getElementById('substack-posts');
   try {
     const rss = 'https://sustainabilitysg.substack.com/feed';
-    const api = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rss)}&count=3`;
+    const api = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rss)}&count=3&t=${Date.now()}`;
     const res = await fetch(api);
     const data = await res.json();
 
