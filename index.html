@@ -804,8 +804,7 @@ async function cwSend() {
 async function loadSubstackPosts() {
   const container = document.getElementById('substack-posts');
   try {
-    const feedUrl = 'https://sustainabilitysg.substack.com/feed';
-    const res = await fetch(`https://corsproxy.io/?${encodeURIComponent(feedUrl)}`);
+    const res = await fetch('/api/feed');
     const text = await res.text();
     const parser = new DOMParser();
     const xml = parser.parseFromString(text, 'text/xml');
@@ -818,9 +817,9 @@ async function loadSubstackPosts() {
 
     container.innerHTML = items.map(item => {
       const title = item.querySelector('title')?.textContent || '';
-      const link = item.querySelector('link')?.textContent || '#';
+      const link = item.querySelector('link')?.nextSibling?.textContent?.trim() || item.querySelector('link')?.textContent || '#';
       const pubDate = item.querySelector('pubDate')?.textContent || '';
-      const desc = item.querySelector('description')?.textContent?.replace(/<[^>]+>/g, '').slice(0, 120) + '...' || '';
+      const desc = item.querySelector('description')?.textContent?.replace(/<[^>]+>/g, '').trim().slice(0, 120) + '...' || '';
       const date = pubDate ? new Date(pubDate).toLocaleDateString('en-SG', { day: 'numeric', month: 'short', year: 'numeric' }) : '';
       return `
         <a href="${link}" target="_blank" rel="noopener" class="insight-post">
@@ -830,7 +829,7 @@ async function loadSubstackPosts() {
         </a>`;
     }).join('');
 
-  } catch {
+  } catch (err) {
     container.innerHTML = '<div class="post-error">Could not load posts. <a href="https://sustainabilitysg.substack.com" target="_blank" rel="noopener" style="color:#1D9E75;">Visit Substack directly →</a></div>';
   }
 }
