@@ -15,13 +15,21 @@ export default async function handler(req, res) {
       headers: {
         'Content-Type': 'application/json',
         'x-api-key': process.env.ANTHROPIC_API_KEY,
-        'anthropic-version': '2023-06-01'
+        'anthropic-version': '2023-06-01',
+        'anthropic-beta': 'interleaved-thinking-2025-05-14'
       },
       body: JSON.stringify({
         model: 'claude-sonnet-4-6',
         max_tokens: 1024,
         system: system,
-        messages: messages.slice(-10)
+        messages: messages.slice(-10),
+        tools: [
+          {
+            type: 'web_search_20250305',
+            name: 'web_search',
+            max_uses: 3
+          }
+        ]
       })
     });
 
@@ -32,7 +40,16 @@ export default async function handler(req, res) {
     }
 
     const data = await response.json();
-    return res.status(200).json(data);
+
+    // Extract just the final text response from potentially mixed content blocks
+    const textContent = data.content
+      ?.filter(block => block.type === 'text')
+      ?.map(block => block.text)
+      ?.join('\n') || 'Sorry, I could not generate a response. Please try again.';
+
+    return res.status(200).json({
+      content: [{ type: 'text', text: textContent }]
+    });
 
   } catch (error) {
     console.error('Handler error:', error);
