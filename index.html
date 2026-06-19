@@ -332,6 +332,78 @@
     section { padding: 60px 1.5rem; }
     .footer-inner { flex-direction: column; align-items: flex-start; }
   }
+ /* LATEST INSIGHTS CARD */
+  .latest-insights-card {
+    background: var(--white);
+    border: 1px solid var(--rule);
+    border-radius: 16px;
+    padding: 28px 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    min-height: 320px;
+  }
+  .insights-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-light);
+    margin-bottom: 20px;
+  }
+  .insight-post {
+    padding: 14px 0;
+    border-bottom: 1px solid var(--rule);
+    text-decoration: none;
+    display: block;
+    transition: opacity 0.15s;
+  }
+  .insight-post:last-of-type { border-bottom: none; }
+  .insight-post:hover { opacity: 0.75; }
+  .insight-post-date {
+    font-size: 11px;
+    color: var(--ink-light);
+    font-family: 'JetBrains Mono', monospace;
+    margin-bottom: 5px;
+  }
+  .insight-post-title {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--ink);
+    line-height: 1.4;
+    margin-bottom: 5px;
+  }
+  .insight-post-desc {
+    font-size: 13px;
+    color: var(--ink-mid);
+    line-height: 1.5;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .insights-all {
+    display: inline-block;
+    margin-top: 16px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--green-mid);
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+  .insights-all:hover { color: var(--green-deep); }
+  .post-loading {
+    font-size: 13px;
+    color: var(--ink-light);
+    padding: 20px 0;
+  }
+  .post-error {
+    font-size: 13px;
+    color: var(--ink-light);
+    padding: 20px 0;
+    line-height: 1.6;
+  }
 </style>
 </head>
 <body>
@@ -428,6 +500,16 @@
           <h3>Emissions accounting</h3>
           <p>Scope 1, 2, and 3 definitions, boundary-setting, data collection, and third-party verification.</p>
           <span class="topic-tag">→ GHG accounting</span>
+        </a>
+      </div>
+     <!-- LATEST INSIGHTS CARD -->
+      <div class="latest-insights-card">
+        <div class="insights-label">Latest from sustainability.sg</div>
+        <div id="substack-posts">
+          <div class="post-loading">Loading latest insights...</div>
+        </div>
+        <a href="https://sustainabilitysg.substack.com" target="_blank" rel="noopener" class="insights-all">
+          View all insights →
         </a>
       </div>
     </div>
@@ -762,6 +844,39 @@ async function cwSend() {
 }
 </script>
 <!-- END CHAT WIDGET -->
+ <script>
+// Fetch latest Substack posts via RSS
+async function loadSubstackPosts() {
+  const container = document.getElementById('substack-posts');
+  try {
+    const rss = 'https://sustainabilitysg.substack.com/feed';
+    const api = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rss)}&count=3`;
+    const res = await fetch(api);
+    const data = await res.json();
+
+    if (data.status !== 'ok' || !data.items?.length) {
+      container.innerHTML = '<div class="post-error">No posts yet. <a href="https://sustainabilitysg.substack.com" target="_blank" rel="noopener" style="color:#1D9E75;">Visit Substack</a> to read the latest.</div>';
+      return;
+    }
+
+    container.innerHTML = data.items.map(post => {
+      const date = new Date(post.pubDate).toLocaleDateString('en-SG', { day: 'numeric', month: 'short', year: 'numeric' });
+      const desc = post.description?.replace(/<[^>]+>/g, '').slice(0, 120) + '...';
+      return `
+        <a href="${post.link}" target="_blank" rel="noopener" class="insight-post">
+          <div class="insight-post-date">${date}</div>
+          <div class="insight-post-title">${post.title}</div>
+          <div class="insight-post-desc">${desc}</div>
+        </a>`;
+    }).join('');
+
+  } catch {
+    container.innerHTML = '<div class="post-error">Could not load posts. <a href="https://sustainabilitysg.substack.com" target="_blank" rel="noopener" style="color:#1D9E75;">Visit Substack directly →</a></div>';
+  }
+}
+
+loadSubstackPosts();
+</script>
  
 </body>
 </html>
