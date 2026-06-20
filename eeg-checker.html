@@ -1,0 +1,605 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EEG Eligibility Checker — Energy Efficiency Grant Singapore | sustainability.sg</title>
+<meta name="description" content="Check if your Singapore business qualifies for the Energy Efficiency Grant (EEG) from Enterprise Singapore. Free eligibility checker covering all 6 sectors.">
+<link rel="icon" type="image/png" href="/icon1.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --green-deep:  #085041;
+    --green-mid:   #1D9E75;
+    --green-light: #E1F5EE;
+    --green-pale:  #F4FBF8;
+    --ink:         #141A17;
+    --ink-mid:     #3D4F47;
+    --ink-light:   #7A9188;
+    --rule:        #D4E8E0;
+    --white:       #FFFFFF;
+    --amber:       #BA7517;
+    --amber-light: #FAEEDA;
+    --red-light:   #FCEBEB;
+    --red-mid:     #E24B4A;
+    --red-dark:    #791F1F;
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Inter', sans-serif; color: var(--ink); background: var(--white); font-size: 16px; line-height: 1.6; }
+
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(255,255,255,0.96); backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--rule);
+    padding: 0 2rem;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 60px;
+  }
+  .nav-logo { font-family: 'JetBrains Mono', monospace; font-size: 15px; font-weight: 500; color: var(--green-deep); text-decoration: none; letter-spacing: -0.02em; display: flex; align-items: center; }
+  .nav-logo span { color: var(--green-mid); }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a { font-size: 14px; color: var(--ink-mid); text-decoration: none; font-weight: 500; transition: color 0.15s; }
+  .nav-links a:hover { color: var(--green-mid); }
+  .nav-cta { background: var(--green-mid); color: var(--white) !important; padding: 7px 18px; border-radius: 6px; font-size: 14px !important; }
+  .nav-cta:hover { background: var(--green-deep) !important; }
+
+  .page-header { background: var(--green-pale); border-bottom: 1px solid var(--rule); padding: 52px 2rem 44px; }
+  .page-header-inner { max-width: 760px; margin: 0 auto; }
+  .eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-light); margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+  .eyebrow::before { content: ''; display: inline-block; width: 20px; height: 1px; background: var(--green-mid); }
+  .page-header h1 { font-family: 'DM Serif Display', serif; font-size: clamp(28px, 4vw, 42px); letter-spacing: -0.02em; line-height: 1.15; margin-bottom: 12px; }
+  .page-header p { font-size: 16px; color: var(--ink-mid); max-width: 520px; line-height: 1.7; }
+  .header-badges { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 16px; }
+  .badge { font-size: 12px; font-weight: 500; font-family: 'JetBrains Mono', monospace; padding: 4px 12px; border-radius: 20px; }
+  .badge-green { background: var(--green-light); color: var(--green-deep); }
+  .badge-amber { background: var(--amber-light); color: var(--amber); }
+
+  .checker-wrap { max-width: 760px; margin: 0 auto; padding: 48px 2rem 80px; }
+
+  .progress-bar { display: flex; gap: 6px; margin-bottom: 36px; }
+  .prog-seg { height: 3px; border-radius: 2px; flex: 1; background: var(--rule); transition: background 0.25s; }
+  .prog-seg.done { background: var(--green-mid); }
+  .prog-seg.active { background: #5DCAA5; }
+
+  .step { display: none; animation: fadeIn 0.2s ease; }
+  .step.active { display: block; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+  .step-meta { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+  .step-counter { font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-light); }
+  .step-q { font-family: 'DM Serif Display', serif; font-size: clamp(22px, 3vw, 28px); color: var(--ink); letter-spacing: -0.01em; margin-bottom: 8px; line-height: 1.25; }
+  .step-hint { font-size: 14px; color: var(--ink-mid); margin-bottom: 24px; line-height: 1.7; max-width: 560px; }
+
+  .options { display: flex; flex-direction: column; gap: 10px; }
+  .opt {
+    display: flex; align-items: center; gap: 14px;
+    padding: 14px 18px;
+    border: 1px solid var(--rule);
+    border-radius: 12px; cursor: pointer;
+    background: var(--white); transition: border-color 0.15s, background 0.15s;
+    text-align: left; width: 100%;
+  }
+  .opt:hover { border-color: #5DCAA5; background: var(--green-pale); }
+  .opt.selected { border-color: var(--green-mid); background: var(--green-pale); }
+  .opt-icon {
+    width: 40px; height: 40px; border-radius: 10px;
+    background: var(--green-pale); border: 1px solid var(--rule);
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .opt-icon i { font-size: 20px; color: var(--ink-light); }
+  .opt.selected .opt-icon { background: var(--green-light); border-color: #5DCAA5; }
+  .opt.selected .opt-icon i { color: var(--green-deep); }
+  .opt-text strong { display: block; font-size: 15px; font-weight: 500; color: var(--ink); margin-bottom: 2px; }
+  .opt-text span { font-size: 13px; color: var(--ink-mid); }
+  .opt-check { margin-left: auto; width: 20px; height: 20px; border-radius: 50%; border: 1.5px solid var(--rule); flex-shrink: 0; display: flex; align-items: center; justify-content: center; transition: all 0.15s; }
+  .opt.selected .opt-check { background: var(--green-mid); border-color: var(--green-mid); }
+  .opt.selected .opt-check::after { content: ''; display: block; width: 8px; height: 8px; border-radius: 50%; background: white; }
+
+  .nav-row { display: flex; gap: 12px; margin-top: 28px; align-items: center; }
+  .btn-back { padding: 10px 20px; border-radius: 8px; border: 1px solid var(--rule); background: transparent; cursor: pointer; font-size: 14px; color: var(--ink-mid); font-family: 'Inter', sans-serif; transition: all 0.15s; }
+  .btn-back:hover { border-color: var(--green-mid); color: var(--green-deep); }
+  .btn-next { padding: 10px 24px; border-radius: 8px; border: none; background: var(--green-mid); color: var(--white); cursor: pointer; font-size: 14px; font-weight: 500; font-family: 'Inter', sans-serif; margin-left: auto; opacity: 0.35; pointer-events: none; transition: background 0.15s; }
+  .btn-next.on { opacity: 1; pointer-events: all; }
+  .btn-next:hover { background: var(--green-deep); }
+
+  .result { animation: fadeIn 0.25s ease; }
+  .result-banner { padding: 24px 28px; border-radius: 14px; margin-bottom: 20px; }
+  .result-banner.eligible { background: var(--green-light); border: 1px solid #5DCAA5; }
+  .result-banner.partial { background: var(--amber-light); border: 1px solid #EF9F27; }
+  .result-banner.ineligible { background: var(--red-light); border: 1px solid #F09595; }
+  .result-pill { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.08em; font-family: 'JetBrains Mono', monospace; margin-bottom: 10px; }
+  .eligible .result-pill { color: var(--green-deep); }
+  .partial .result-pill { color: var(--amber); }
+  .ineligible .result-pill { color: var(--red-dark); }
+  .result-banner h2 { font-family: 'DM Serif Display', serif; font-size: 26px; color: var(--ink); letter-spacing: -0.01em; margin-bottom: 6px; }
+  .result-banner p { font-size: 14px; color: var(--ink-mid); line-height: 1.7; }
+
+  .grant-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin-bottom: 20px; }
+  .grant-card { background: var(--green-pale); border: 1px solid var(--rule); border-radius: 12px; padding: 16px 18px; }
+  .grant-card-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.07em; color: var(--ink-light); font-family: 'JetBrains Mono', monospace; margin-bottom: 6px; }
+  .grant-card-value { font-family: 'DM Serif Display', serif; font-size: 24px; color: var(--green-deep); line-height: 1.1; }
+  .grant-card-note { font-size: 12px; color: var(--ink-mid); margin-top: 3px; }
+
+  .check-card { background: var(--white); border: 1px solid var(--rule); border-radius: 12px; padding: 18px 22px; margin-bottom: 12px; }
+  .check-card-title { font-size: 13px; font-weight: 500; color: var(--ink); margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+  .check-card-title i { font-size: 17px; }
+  .check-card-title i.green { color: var(--green-mid); }
+  .check-card-title i.red { color: var(--red-mid); }
+  .check-card-title i.amber { color: var(--amber); }
+  .checks { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+  .checks li { font-size: 14px; color: var(--ink-mid); display: flex; gap: 10px; align-items: flex-start; line-height: 1.6; }
+  .checks li i { font-size: 16px; flex-shrink: 0; margin-top: 3px; }
+  .checks li.pass i { color: var(--green-mid); }
+  .checks li.fail i { color: var(--red-mid); }
+  .checks li.warn i { color: var(--amber); }
+  .checks li.info i { color: var(--green-mid); }
+
+  .cta-row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 20px; }
+  .btn-cta { padding: 11px 22px; border-radius: 8px; font-size: 14px; font-weight: 500; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; font-family: 'Inter', sans-serif; transition: all 0.15s; }
+  .btn-cta.primary { background: var(--green-mid); color: var(--white); border: none; }
+  .btn-cta.primary:hover { background: var(--green-deep); }
+  .btn-cta.secondary { background: transparent; color: var(--ink); border: 1px solid var(--rule); }
+  .btn-cta.secondary:hover { border-color: var(--green-mid); color: var(--green-deep); }
+
+  .disclaimer { font-size: 12px; color: var(--ink-light); margin-top: 16px; padding: 12px 16px; background: var(--green-pale); border-radius: 8px; line-height: 1.7; }
+
+  .info-strip { background: var(--green-pale); border-top: 1px solid var(--rule); padding: 48px 2rem; }
+  .info-strip-inner { max-width: 760px; margin: 0 auto; }
+  .info-strip h2 { font-family: 'DM Serif Display', serif; font-size: 24px; color: var(--ink); letter-spacing: -0.01em; margin-bottom: 20px; }
+  .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
+  .info-card { background: var(--white); border: 1px solid var(--rule); border-radius: 12px; padding: 18px 20px; }
+  .info-card-icon { font-size: 22px; color: var(--green-mid); margin-bottom: 10px; }
+  .info-card h3 { font-size: 14px; font-weight: 600; color: var(--ink); margin-bottom: 6px; }
+  .info-card p { font-size: 13px; color: var(--ink-mid); line-height: 1.6; }
+
+  footer { background: var(--ink); padding: 40px 2rem; }
+  .footer-inner { max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+  .footer-logo { font-family: 'JetBrains Mono', monospace; font-size: 15px; color: rgba(255,255,255,0.9); text-decoration: none; }
+  .footer-logo span { color: var(--green-mid); }
+  .footer-links { display: flex; gap: 24px; list-style: none; }
+  .footer-links a { color: rgba(255,255,255,0.4); text-decoration: none; font-size: 14px; transition: color 0.15s; }
+  .footer-links a:hover { color: var(--green-mid); }
+  .footer-copy { font-size: 13px; color: rgba(255,255,255,0.4); }
+
+  @media (max-width: 768px) {
+    nav { padding: 0 1rem; }
+    .nav-links { display: none; }
+    .checker-wrap { padding: 32px 1.5rem 60px; }
+    .page-header { padding: 40px 1.5rem 32px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">
+    <img src="/icon1.png" alt="sustainability.sg" style="height:47px; width:47px; border-radius:8px; vertical-align:middle; margin-right:8px;">
+    <span style="vertical-align:middle;">sustainability<span style="color:#1D9E75;">.sg</span></span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="/resources.html">Resources</a></li>
+    <li><a href="/advisor.html">AI Advisor</a></li>
+    <li><a href="https://sustainabilitysg.substack.com" target="_blank" rel="noopener">Insights</a></li>
+    <li><a href="/advisor.html" class="nav-cta">Ask the Advisor</a></li>
+  </ul>
+</nav>
+
+<div class="page-header">
+  <div class="page-header-inner">
+    <div class="eyebrow">Enterprise Singapore</div>
+    <h1>Energy Efficiency Grant eligibility checker</h1>
+    <p>Find out in 2 minutes whether your business qualifies for EEG co-funding — and how much support you could receive.</p>
+    <div class="header-badges">
+      <span class="badge badge-green">Up to 70% for SMEs</span>
+      <span class="badge badge-green">Up to S$350,000</span>
+      <span class="badge badge-amber">Extended to March 2027</span>
+      <span class="badge badge-green">All sectors from 2028</span>
+    </div>
+  </div>
+</div>
+
+<div class="checker-wrap">
+  <div class="progress-bar" id="progress"></div>
+
+  <div class="step active" id="step-0">
+    <div class="step-meta">
+      <span class="step-counter">Step 1 of 5</span>
+    </div>
+    <div class="step-q">What sector does your business operate in?</div>
+    <div class="step-hint">The EEG currently covers 6 specific sectors. Base Tier is expanding to all sectors from late 2026 under the April 2026 Ministerial Statement.</div>
+    <div class="options">
+      <button class="opt" onclick="pick(0,'food_services',this)">
+        <div class="opt-icon"><i class="ti ti-tools-kitchen-2" aria-hidden="true"></i></div>
+        <div class="opt-text"><strong>Food services</strong><span>Restaurants, cafes, hawkers, caterers (SSIC 56 or 68104)</span></div>
+        <div class="opt-check"></div>
+      </button>
+      <button class="opt" onclick="pick(0,'manufacturing',this)">
+        <div class="opt-icon"><i class="ti ti-building-factory-2" aria-hidden="true"></i></div>
+        <div class="opt-text"><strong>Manufacturing</strong><span>Including food manufacturing (SSIC 10-32)</span></div>
+        <div class="opt-check"></div>
+      </button>
+      <button class="opt" onclick="pick(0,'retail',this)">
+        <div class="opt-icon"><i class="ti ti-shopping-bag" aria-hidden="true"></i></div>
+        <div class="opt-text"><strong>Retail</strong><span>Physical retail stores (SSIC 47)</span></div>
+        <div class="opt-check"></div>
+      </button>
+      <button class="opt" onclick="pick(0,'construction',this)">
+        <div class="opt-icon"><i class="ti ti-crane" aria-hidden="true"></i></div>
+        <div class="opt-text"><strong>Construction</strong><span>Building and construction (SSIC 41-43)</span></div>
+        <div class="opt-check"></div>
+      </button>
+      <button class="opt" onclick="pick(0,'data_centre',this)">
+        <div class="opt-icon"><i class="ti ti-server" aria-hidden="true"></i></div>
+        <div class="opt-text"><strong>Data centre</strong><span>Commercial data centre operations in Singapore</span></div>
+        <div class="opt-check"></div>
+      </button>
+      <button class="opt" onclick="pick(0,'maritime',this)">
+        <div class="opt-icon"><i class="ti ti-anchor" aria-hidden="true"></i></div>
+        <div class="opt-text"><strong>Maritime — port sector</strong><span>Port operations (SSIC 52101, 52221-52224, 52243, 52292 etc.)</span></div>
+        <div class="opt-check"></div>
+      </button>
+      <button class="opt" onclick="pick(0,'other',this)">
+        <div class="opt-icon"><i class="ti ti-building" aria-hidden="true"></i></div>
+        <div class="opt-text"><strong>Other sector</strong><span>Not listed above — e.g. professional services, hospitality</span></div>
+        <div class="opt-check"></div>
+      </button>
+    </div>
+    <div class="nav-row">
+      <button class="btn-next on" id="next-0" onclick="goNext(0)">Next <i class="ti ti-arrow-right" aria-hidden="true"></i></button>
+    </div>
+  </div>
+
+  <div class="step" id="step-1">
+    <div class="step-meta"><span class="step-counter">Step 2 of 5</span></div>
+    <div class="step-q">Is your business registered and operating in Singapore?</div>
+    <div class="step-hint">Your company must be registered with ACRA and actively operating in Singapore at the time of application.</div>
+    <div class="options">
+      <button class="opt" onclick="pick(1,'yes',this)">
+        <div class="opt-icon"><i class="ti ti-check" aria-hidden="true"></i></div>
+        <div class="opt-text"><strong>Yes</strong><span>Registered with ACRA and currently operating in Singapore</span></div>
+        <div class="opt-check"></div>
+      </button>
+      <button class="opt" onclick="pick(1,'no',this)">
+        <div class="opt-icon"><i class="ti ti-x" aria-hidden="true"></i></div>
+        <div class="opt-text"><strong>No</strong><span>Not yet registered or primarily operating overseas</span></div>
+        <div class="opt-check"></div>
+      </button>
+    </div>
+    <div class="nav-row">
+      <button class="btn-back" onclick="goBack(1)"><i class="ti ti-arrow-left" aria-hidden="true"></i> Back</button>
+      <button class="btn-next" id="next-1" onclick="goNext(1)">Next <i class="ti ti-arrow-right" aria-hidden="true"></i></button>
+    </div>
+  </div>
+
+  <div class="step" id="step-2">
+    <div class="step-meta"><span class="step-counter">Step 3 of 5</span></div>
+    <div class="step-q">What is your group annual sales turnover?</div>
+    <div class="step-hint">This is the combined turnover of your company and all related entities in your corporate group. This determines both eligibility and your support rate.</div>
+    <div class="options">
+      <button class="opt" onclick="pick(2,'sme',this)">
+        <div class="opt-icon"><i class="ti ti-coin" aria-hidden="true"></i></div>
+        <div class="opt-text"><strong>Under S$100 million</strong><span>Qualifies as SME — eligible for up to 70% support</span></div>
+        <div class="opt-check"></div>
+      </button>
+      <button class="opt" onclick="pick(2,'non_sme',this)">
+        <div class="opt-icon"><i class="ti ti-coins" aria-hidden="true"></i></div>
+        <div class="opt-text"><strong>S$100 million to S$500 million</strong><span>Non-SME — eligible for up to 30% support</span></div>
+        <div class="opt-check"></div>
+      </button>
+      <button class="opt" onclick="pick(2,'over500m',this)">
+        <div class="opt-icon"><i class="ti ti-building-skyscraper" aria-hidden="true"></i></div>
+        <div class="opt-text"><strong>Over S$500 million</strong><span>Above the EEG turnover cap</span></div>
+        <div class="opt-check"></div>
+      </button>
+    </div>
+    <div class="nav-row">
+      <button class="btn-back" onclick="goBack(2)"><i class="ti ti-arrow-left" aria-hidden="true"></i> Back</button>
+      <button class="btn-next" id="next-2" onclick="goNext(2)">Next <i class="ti ti-arrow-right" aria-hidden="true"></i></button>
+    </div>
+  </div>
+
+  <div class="step" id="step-3">
+    <div class="step-meta"><span class="step-counter">Step 4 of 5</span></div>
+    <div class="step-q">What is your local shareholding percentage?</div>
+    <div class="step-hint">Most EEG sectors require a minimum of 30% local shareholding. Data centres are the only sector exempt from this requirement.</div>
+    <div class="options">
+      <button class="opt" onclick="pick(3,'30plus',this)">
+        <div class="opt-icon"><i class="ti ti-chart-pie" aria-hidden="true"></i></div>
+        <div class="opt-text"><strong>30% or more</strong><span>Meets the local shareholding requirement</span></div>
+        <div class="opt-check"></div>
+      </button>
+      <button class="opt" onclick="pick(3,'under30',this)">
+        <div class="opt-icon"><i class="ti ti-chart-pie-2" aria-hidden="true"></i></div>
+        <div class="opt-text"><strong>Less than 30%</strong><span>Below the minimum local shareholding threshold</span></div>
+        <div class="opt-check"></div>
+      </button>
+      <button class="opt" onclick="pick(3,'unsure',this)">
+        <div class="opt-icon"><i class="ti ti-question-mark" aria-hidden="true"></i></div>
+        <div class="opt-text"><strong>Not sure</strong><span>I need to check this with my corporate secretary</span></div>
+        <div class="opt-check"></div>
+      </button>
+    </div>
+    <div class="nav-row">
+      <button class="btn-back" onclick="goBack(3)"><i class="ti ti-arrow-left" aria-hidden="true"></i> Back</button>
+      <button class="btn-next" id="next-3" onclick="goNext(3)">Next <i class="ti ti-arrow-right" aria-hidden="true"></i></button>
+    </div>
+  </div>
+
+  <div class="step" id="step-4">
+    <div class="step-meta"><span class="step-counter">Step 5 of 5</span></div>
+    <div class="step-q">Has the equipment purchase or project already started?</div>
+    <div class="step-hint">EEG requires that the project has not commenced at the point of application. Equipment ordered or installed before applying cannot be claimed. Note: you may purchase equipment after submitting your application but before receiving the outcome — at your own risk.</div>
+    <div class="options">
+      <button class="opt" onclick="pick(4,'not_started',this)">
+        <div class="opt-icon"><i class="ti ti-clock" aria-hidden="true"></i></div>
+        <div class="opt-text"><strong>Not started yet</strong><span>We have not purchased or committed to the equipment yet</span></div>
+        <div class="opt-check"></div>
+      </button>
+      <button class="opt" onclick="pick(4,'started',this)">
+        <div class="opt-icon"><i class="ti ti-player-play" aria-hidden="true"></i></div>
+        <div class="opt-text"><strong>Already purchased or installed</strong><span>Equipment has been ordered, delivered, or installed</span></div>
+        <div class="opt-check"></div>
+      </button>
+    </div>
+    <div class="nav-row">
+      <button class="btn-back" onclick="goBack(4)"><i class="ti ti-arrow-left" aria-hidden="true"></i> Back</button>
+      <button class="btn-next" id="next-4" onclick="showResult()">See my result <i class="ti ti-arrow-right" aria-hidden="true"></i></button>
+    </div>
+  </div>
+
+  <div class="step" id="step-result">
+    <div class="result" id="result-content"></div>
+  </div>
+</div>
+
+<section class="info-strip">
+  <div class="info-strip-inner">
+    <h2>About the EEG</h2>
+    <div class="info-grid">
+      <div class="info-card">
+        <div class="info-card-icon"><i class="ti ti-calendar" aria-hidden="true"></i></div>
+        <h3>Scheme timeline</h3>
+        <p>Extended to 31 March 2027. Base Tier expanding to all sectors and extended to 31 March 2028 per April 2026 Ministerial Statement.</p>
+      </div>
+      <div class="info-card">
+        <div class="info-card-icon"><i class="ti ti-receipt" aria-hidden="true"></i></div>
+        <h3>Two tiers of support</h3>
+        <p>Base Tier covers pre-approved equipment up to S$30,000. Advanced Tier (selected sectors) supports larger investments up to S$350,000 combined.</p>
+      </div>
+      <div class="info-card">
+        <div class="info-card-icon"><i class="ti ti-bolt" aria-hidden="true"></i></div>
+        <h3>Qualifying equipment</h3>
+        <p>Pre-approved energy-efficient equipment listed on GoBusiness. Advanced Tier requires demonstrated savings above 350 tonnes lifetime carbon abatement.</p>
+      </div>
+      <div class="info-card">
+        <div class="info-card-icon"><i class="ti ti-clock" aria-hidden="true"></i></div>
+        <h3>Claim window</h3>
+        <p>Once approved, you have up to 1 year to purchase, install, and submit your claim for reimbursement.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <a href="/" class="footer-logo">sustainability<span>.sg</span></a>
+    <ul class="footer-links">
+      <li><a href="/resources.html">Resources</a></li>
+      <li><a href="/advisor.html">AI Advisor</a></li>
+      <li><a href="https://sustainabilitysg.substack.com" target="_blank" rel="noopener">Insights</a></li>
+      <li><a href="https://www.linkedin.com/in/nileshjadhav/" target="_blank" rel="noopener">LinkedIn</a></li>
+    </ul>
+    <p class="footer-copy">AI responses are informational. Consult qualified professionals for compliance decisions.</p>
+  </div>
+</footer>
+
+<script>
+const ans = {};
+const STEPS = 5;
+
+function updateProgress(cur) {
+  document.getElementById('progress').innerHTML =
+    Array.from({length: STEPS}, (_, i) =>
+      `<div class="prog-seg ${i < cur ? 'done' : i === cur ? 'active' : ''}"></div>`
+    ).join('');
+}
+
+function pick(step, val, el) {
+  ans[step] = val;
+  document.querySelectorAll(`#step-${step} .opt`).forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+  const nb = document.getElementById(`next-${step}`);
+  if (nb) nb.classList.add('on');
+}
+
+function goNext(step) {
+  if (!ans[step] && step !== 0) return;
+  document.getElementById(`step-${step}`).classList.remove('active');
+  document.getElementById(`step-${step+1}`).classList.add('active');
+  updateProgress(step + 1);
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+function goBack(step) {
+  document.getElementById(`step-${step}`).classList.remove('active');
+  document.getElementById(`step-${step-1}`).classList.add('active');
+  updateProgress(step - 1);
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+function showResult() {
+  if (!ans[4]) return;
+  document.getElementById('step-4').classList.remove('active');
+  document.getElementById('step-result').classList.add('active');
+  updateProgress(STEPS);
+  window.scrollTo({top: 0, behavior: 'smooth'});
+
+  const sector = ans[0];
+  const registered = ans[1];
+  const turnover = ans[2];
+  const shareholding = ans[3];
+  const started = ans[4];
+
+  const isSME = turnover === 'sme';
+  const isDataCentre = sector === 'data_centre';
+  const isOther = sector === 'other';
+  const advancedAvailable = ['manufacturing','construction'].includes(sector);
+
+  const sectorNames = {
+    food_services: 'Food services', manufacturing: 'Manufacturing',
+    retail: 'Retail', construction: 'Construction',
+    data_centre: 'Data centre', maritime: 'Maritime (port sector)', other: 'Other sector'
+  };
+
+  let passes = [], fails = [], warns = [];
+  let status = 'eligible';
+
+  if (registered === 'no') { fails.push('Business must be registered and operating in Singapore'); status = 'ineligible'; }
+  else passes.push('Registered and operating in Singapore');
+
+  if (turnover === 'over500m') { fails.push('Group annual sales turnover exceeds the S$500 million cap'); status = 'ineligible'; }
+  else passes.push(`Turnover within the S$500 million eligibility cap`);
+
+  if (!isDataCentre && shareholding === 'under30') {
+    fails.push('Minimum 30% local shareholding not met — required for your sector');
+    status = 'ineligible';
+  } else if (!isDataCentre && shareholding === 'unsure') {
+    warns.push('Confirm your local shareholding is at least 30% before applying');
+    if (status === 'eligible') status = 'partial';
+  } else if (isDataCentre) {
+    passes.push('Data centres are exempt from local shareholding requirement');
+  } else {
+    passes.push('Local shareholding requirement met (30% or more)');
+  }
+
+  if (started === 'started') {
+    fails.push('Equipment already purchased — EEG requires application before project commencement');
+    status = 'ineligible';
+  } else {
+    passes.push('Project not yet started — eligible to apply before purchasing');
+  }
+
+  if (isOther && status === 'eligible') status = 'partial';
+
+  const bannerContent = {
+    eligible: {
+      label: '<i class="ti ti-circle-check" aria-hidden="true"></i> Eligible',
+      title: 'Your business appears to qualify for EEG',
+      desc: `Based on your answers, you meet the eligibility criteria for the ${sectorNames[sector]} sector. Apply through the Business Grants Portal before purchasing your equipment.`
+    },
+    partial: isOther ? {
+      label: '<i class="ti ti-info-circle" aria-hidden="true"></i> Expanding to your sector',
+      title: 'EEG Base Tier coming to all sectors',
+      desc: 'Your sector is not currently covered by EEG, but the April 2026 Ministerial Statement confirmed EEG Base Tier will expand to all sectors and be extended to 31 March 2028. Check EnterpriseSG for updates later in 2026.'
+    } : {
+      label: '<i class="ti ti-alert-circle" aria-hidden="true"></i> Likely eligible — one item to confirm',
+      title: 'You may qualify — please verify shareholding',
+      desc: 'Your profile looks strong but you need to confirm your local shareholding meets the 30% minimum requirement before submitting your application.'
+    },
+    ineligible: {
+      label: '<i class="ti ti-circle-x" aria-hidden="true"></i> Not eligible',
+      title: 'Your business does not currently qualify',
+      desc: 'Based on your answers, one or more eligibility criteria are not met. See the details below. You may still qualify for other energy efficiency support — ask the AI Advisor.'
+    }
+  }[status];
+
+  let html = `
+    <div class="result-banner ${status}">
+      <div class="result-pill">${bannerContent.label}</div>
+      <h2>${bannerContent.title}</h2>
+      <p>${bannerContent.desc}</p>
+    </div>`;
+
+  if (status === 'eligible') {
+    const rate = isSME ? 'Up to 70%' : 'Up to 30%';
+    const type = isSME ? 'SME rate' : 'Non-SME rate';
+    html += `<div class="grant-cards">
+      <div class="grant-card">
+        <div class="grant-card-label">Support rate</div>
+        <div class="grant-card-value">${rate}</div>
+        <div class="grant-card-note">${type}</div>
+      </div>
+      <div class="grant-card">
+        <div class="grant-card-label">Base tier cap</div>
+        <div class="grant-card-value">S$30,000</div>
+        <div class="grant-card-note">Per company</div>
+      </div>
+      ${advancedAvailable ? `<div class="grant-card">
+        <div class="grant-card-label">Advanced tier</div>
+        <div class="grant-card-value">S$350,000</div>
+        <div class="grant-card-note">Base + advanced combined</div>
+      </div>` : ''}
+      <div class="grant-card">
+        <div class="grant-card-label">Valid until</div>
+        <div class="grant-card-value">Mar 2027</div>
+        <div class="grant-card-note">Base tier to Mar 2028</div>
+      </div>
+    </div>`;
+  }
+
+  if (passes.length) {
+    html += `<div class="check-card">
+      <div class="check-card-title"><i class="ti ti-circle-check green" aria-hidden="true"></i> Criteria met</div>
+      <ul class="checks">${passes.map(p => `<li class="pass"><i class="ti ti-check" aria-hidden="true"></i>${p}</li>`).join('')}</ul>
+    </div>`;
+  }
+
+  if (fails.length) {
+    html += `<div class="check-card">
+      <div class="check-card-title"><i class="ti ti-circle-x red" aria-hidden="true"></i> Criteria not met</div>
+      <ul class="checks">${fails.map(f => `<li class="fail"><i class="ti ti-x" aria-hidden="true"></i>${f}</li>`).join('')}</ul>
+    </div>`;
+  }
+
+  if (warns.length) {
+    html += `<div class="check-card">
+      <div class="check-card-title"><i class="ti ti-alert-triangle amber" aria-hidden="true"></i> Items to verify</div>
+      <ul class="checks">${warns.map(w => `<li class="warn"><i class="ti ti-alert-circle" aria-hidden="true"></i>${w}</li>`).join('')}</ul>
+    </div>`;
+  }
+
+  if (status === 'eligible') {
+    html += `<div class="check-card">
+      <div class="check-card-title"><i class="ti ti-list-check green" aria-hidden="true"></i> Next steps</div>
+      <ul class="checks">
+        <li class="info"><i class="ti ti-arrow-right" aria-hidden="true"></i>Check the pre-approved equipment list on GoBusiness before purchasing</li>
+        <li class="info"><i class="ti ti-arrow-right" aria-hidden="true"></i>Apply on the Business Grants Portal before purchasing or installing equipment</li>
+        <li class="info"><i class="ti ti-arrow-right" aria-hidden="true"></i>You have up to 1 year from approval to purchase, install, and claim</li>
+        ${isDataCentre ? `<li class="info"><i class="ti ti-arrow-right" aria-hidden="true"></i>For data centre queries, contact IMDA at IT_Energy_Efficiency@imda.gov.sg</li>` : ''}
+        ${advancedAvailable ? `<li class="info"><i class="ti ti-arrow-right" aria-hidden="true"></i>Advanced Tier available for your sector — contact EnterpriseSG for investments exceeding 350 tonnes lifetime carbon abatement</li>` : ''}
+      </ul>
+    </div>`;
+  }
+
+  html += `<div class="cta-row">
+    ${status === 'eligible' ? `<a class="btn-cta primary" href="https://www.apply.gov.sg/grants/business" target="_blank" rel="noopener"><i class="ti ti-external-link" aria-hidden="true"></i> Apply on Business Grants Portal</a>` : ''}
+    <a class="btn-cta secondary" href="https://www.enterprisesg.gov.sg/financial-support/energy-efficiency-grant" target="_blank" rel="noopener">Full EEG details</a>
+    <a class="btn-cta secondary" href="/advisor.html?q=energy+efficiency+grant+Singapore">Ask the AI Advisor</a>
+    <button class="btn-cta secondary" onclick="restart()"><i class="ti ti-refresh" aria-hidden="true"></i> Start again</button>
+  </div>
+  <p class="disclaimer">This checker provides guidance based on published EEG eligibility criteria as of June 2026. Grant schemes and quantum may be updated. Always verify current requirements directly with Enterprise Singapore before applying. This tool does not constitute official advice.</p>`;
+
+  document.getElementById('result-content').innerHTML = html;
+}
+
+function restart() {
+  Object.keys(ans).forEach(k => delete ans[k]);
+  document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.opt').forEach(o => o.classList.remove('selected'));
+  document.querySelectorAll('.btn-next').forEach(b => b.classList.remove('on'));
+  document.getElementById('next-0').classList.add('on');
+  document.getElementById('step-0').classList.add('active');
+  updateProgress(0);
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+updateProgress(0);
+</script>
+
+</body>
+</html>
