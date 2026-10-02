@@ -3,14 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI enabled Sustainability Resource</title>
+<title>sustainability.sg — Singapore's Sustainability Resource</title>
 <meta name="description" content="Your guide to sustainability in Singapore: green building regulations, energy grants, carbon tax, ESG reporting, and expert advisory.">
-<meta property="og:title" content="Sustainability.sg — AI enabled Sustainbility Resource">
-<meta property="og:description" content="Singapore's guide to sustainability: Green Mark, carbon tax, energy grants, ESG reporting, and an AI advisor for businesses.">
-<meta property="og:image" content="https://sustainability.sg/icon1.png">
-<meta property="og:url" content="https://sustainability.sg">
-<meta property="og:type" content="website">
-<meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/png" href="/icon1.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -348,6 +342,98 @@
     font-size: 11px; color: var(--green-deep);
   }
 
+  /* GLOSSARY TEASER */
+  .glossary-teaser {
+    background: var(--green-pale);
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    padding: 48px 2rem;
+  }
+  .glossary-teaser-inner {
+    max-width: 1100px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1.6fr; gap: 48px; align-items: center;
+  }
+  .glossary-teaser-copy .section-label { margin-bottom: 8px; }
+  .glossary-teaser-copy h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2rem; font-weight: 400; line-height: 1.25;
+    color: var(--ink); margin-bottom: 12px;
+  }
+  .glossary-teaser-copy p { font-size: 15px; color: var(--ink-mid); line-height: 1.65; margin-bottom: 20px; }
+  .glossary-teaser-copy a.btn-secondary { display: inline-block; }
+  .glossary-search-box {
+    background: var(--white);
+    border: 1px solid var(--rule);
+    border-radius: 16px; padding: 28px;
+    box-shadow: 0 2px 16px rgba(8,80,65,0.06);
+  }
+  .glossary-search-label {
+    font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--ink-light); margin-bottom: 12px; font-weight: 500;
+  }
+  .glossary-search-row {
+    display: flex; gap: 10px; margin-bottom: 20px;
+  }
+  .glossary-search-input {
+    flex: 1;
+    border: 1px solid var(--rule); border-radius: 8px;
+    padding: 10px 14px; font-size: 14px; font-family: 'Inter', sans-serif;
+    color: var(--ink); background: var(--white);
+    outline: none; transition: border-color 0.15s;
+  }
+  .glossary-search-input:focus { border-color: var(--green-mid); }
+  .glossary-search-input::placeholder { color: var(--ink-light); }
+  .glossary-search-btn {
+    background: var(--green-mid); color: var(--white);
+    border: none; border-radius: 8px; padding: 10px 18px;
+    font-size: 14px; font-weight: 500; cursor: pointer;
+    font-family: 'Inter', sans-serif; white-space: nowrap;
+    transition: background 0.15s;
+  }
+  .glossary-search-btn:hover { background: var(--green-deep); }
+  .glossary-results { min-height: 120px; }
+  .glossary-result-item {
+    border-bottom: 1px solid var(--rule); padding: 12px 0;
+    cursor: pointer; transition: background 0.1s;
+  }
+  .glossary-result-item:last-child { border-bottom: none; }
+  .glossary-result-item:hover .gri-term { color: var(--green-mid); }
+  .gri-term {
+    font-weight: 600; font-size: 14px; color: var(--ink);
+    transition: color 0.15s;
+  }
+  .gri-abbr {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; color: var(--ink-light); margin-left: 6px;
+  }
+  .gri-cat {
+    display: inline-block; margin-left: 8px;
+    background: var(--green-light); color: var(--green-deep);
+    font-size: 10px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase;
+    padding: 2px 6px; border-radius: 4px;
+  }
+  .gri-def { font-size: 13px; color: var(--ink-mid); margin-top: 3px; line-height: 1.5;
+    display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+  }
+  .glossary-result-empty { font-size: 14px; color: var(--ink-light); padding: 20px 0; text-align: center; }
+  .glossary-result-placeholder {
+    display: flex; flex-direction: column; gap: 10px;
+  }
+  .gri-placeholder {
+    background: var(--green-light); border-radius: 6px; opacity: 0.5;
+    height: 14px;
+  }
+  .glossary-view-all {
+    display: block; text-align: center;
+    margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--rule);
+    font-size: 13px; color: var(--green-mid); font-weight: 500;
+    text-decoration: none;
+  }
+  .glossary-view-all:hover { color: var(--green-deep); }
+  @media (max-width: 900px) {
+    .glossary-teaser-inner { grid-template-columns: 1fr; gap: 28px; }
+  }
+
   /* RESOURCES STRIP */
   .resources-strip { background: var(--green-pale); border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
   .resources-grid {
@@ -494,21 +580,6 @@
     #cw-tooltip { display: none; }
   }
 </style>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "WebSite",
-  "name": "sustainability.sg",
-  "url": "https://sustainability.sg",
-  "description": "Singapore's sustainability resource covering Green Mark, carbon tax, energy grants, and ESG reporting",
-  "potentialAction": {
-    "@type": "SearchAction",
-    "target": "https://sustainability.sg/advisor.html?q={search_term_string}",
-    "query-input": "required name=search_term_string"
-  }
-}
-</script>
- 
 </head>
 <body>
 
@@ -519,8 +590,9 @@
   </a>
   <ul class="nav-links">
     <li><a href="/resources.html">Resources</a></li>
+    <li><a href="/glossary.html">Glossary</a></li>
     <li><a href="/advisor.html">AI Advisor</a></li>
-    <li><a href="/insights">Insights</a></li>
+    <li><a href="https://sustainabilitysg.substack.com" target="_blank" rel="noopener">Insights</a></li>
     <li><a href="/advisor.html" class="nav-cta">Ask the Advisor</a></li>
   </ul>
 </nav>
@@ -533,7 +605,7 @@
 
       <!-- LEFT: Copy -->
       <div class="hero-copy">
-        
+        <div class="hero-eyebrow">Singapore Sustainability</div>
         <h1>Navigate the <em>green transition</em> with confidence</h1>
         <p class="hero-sub">Singapore's carbon tax is rising. Green Mark requirements are tightening. ESG reporting is becoming mandatory. This site cuts through the complexity so you can act.</p>
         <div class="hero-actions">
@@ -564,7 +636,7 @@
 
       <!-- RIGHT: Latest Insights -->
       <div class="latest-insights-card">
-        <div class="insights-label">Latest Insights from Sustainability Experts</div>
+        <div class="insights-label">Latest from sustainability.sg</div>
         <div id="substack-posts">
           <div class="post-loading">Loading latest insights...</div>
         </div>
@@ -574,30 +646,33 @@
     </div>
   </div>
 
- <!-- AI ADVISOR -->
-  <section class="advisor-section">
-    <div class="section-inner">
-      <div class="advisor-inner">
-        <div>
-          <div class="section-label">AI-powered</div>
-          <h2 class="section-title">Your sustainability questions, answered instantly</h2>
-          <p class="section-sub">The AI Advisor is trained on Singapore's sustainability landscape: BCA, EMA, NEA, EDB regulations, grants, and frameworks. Ask it anything.</p>
-          <ul class="advisor-features">
-            <li><div class="feat-dot">✓</div>Knows Singapore's grant schemes and eligibility criteria</li>
-            <li><div class="feat-dot">✓</div>Up to date on carbon tax trajectory and Energy Conservation Act</li>
-            <li><div class="feat-dot">✓</div>Guides you through Green Mark, GRI, TCFD, and ISSB requirements</li>
-            <li><div class="feat-dot">✓</div>Plain English answers, no jargon unless you want it</li>
-          </ul>
-          <a href="/advisor.html" class="btn-primary" style="margin-top:32px; display:inline-block;">Open the Advisor</a>
+  <!-- GLOSSARY TEASER -->
+  <section class="glossary-teaser">
+    <div class="glossary-teaser-inner">
+      <div class="glossary-teaser-copy">
+        <div class="section-label">Sustainability Glossary</div>
+        <h2>Singapore sustainability terms, clearly explained</h2>
+        <p>From Green Mark to GHG Protocol, carbon credits to TCFD — a growing reference of practitioner-level definitions with Singapore context, agency sources, and cross-references.</p>
+        <a href="/glossary.html" class="btn-secondary">Browse full glossary →</a>
+      </div>
+      <div class="glossary-search-box">
+        <div class="glossary-search-label">Quick term lookup</div>
+        <div class="glossary-search-row">
+          <input
+            type="text" id="ht-search" class="glossary-search-input"
+            placeholder="e.g. Carbon tax, Green Mark, TCFD…"
+            autocomplete="off" spellcheck="false"
+          >
+          <button class="glossary-search-btn" onclick="htSearch()">Search</button>
         </div>
-        <div class="advisor-visual">
-          <div class="chat-preview">
-            <div class="chat-label right">You</div>
-            <div class="chat-msg user">What grants can I apply for to upgrade my building's energy systems?</div>
-            <div class="chat-label">Advisor</div>
-            <div class="chat-msg">Several schemes apply. For SMEs, the Energy Efficiency Grant (EEG) from Enterprise Singapore covers up to 70% of qualifying costs for pre-approved energy-efficient equipment. For larger industrials, EMA's Energy Efficiency Fund (E2F) supports audits and retrofits. If you're refinancing the upgrade, BREEF provides green loans at preferential rates.</div>
+        <div class="glossary-results" id="ht-results">
+          <div class="glossary-result-placeholder">
+            <div class="gri-placeholder" style="width:60%"></div>
+            <div class="gri-placeholder" style="width:80%"></div>
+            <div class="gri-placeholder" style="width:45%"></div>
           </div>
         </div>
+        <a href="/glossary.html" class="glossary-view-all">Browse the full glossary →</a>
       </div>
     </div>
   </section>
@@ -651,7 +726,34 @@
     </div>
   </section>
 
- 
+  <!-- AI ADVISOR -->
+  <section class="advisor-section">
+    <div class="section-inner">
+      <div class="advisor-inner">
+        <div>
+          <div class="section-label">AI-powered</div>
+          <h2 class="section-title">Your sustainability questions, answered instantly</h2>
+          <p class="section-sub">The AI Advisor is trained on Singapore's sustainability landscape: BCA, EMA, NEA, EDB regulations, grants, and frameworks. Ask it anything.</p>
+          <ul class="advisor-features">
+            <li><div class="feat-dot">✓</div>Knows Singapore's grant schemes and eligibility criteria</li>
+            <li><div class="feat-dot">✓</div>Up to date on carbon tax trajectory and Energy Conservation Act</li>
+            <li><div class="feat-dot">✓</div>Guides you through Green Mark, GRI, TCFD, and ISSB requirements</li>
+            <li><div class="feat-dot">✓</div>Plain English answers, no jargon unless you want it</li>
+          </ul>
+          <a href="/advisor.html" class="btn-primary" style="margin-top:32px; display:inline-block;">Open the Advisor</a>
+        </div>
+        <div class="advisor-visual">
+          <div class="chat-preview">
+            <div class="chat-label right">You</div>
+            <div class="chat-msg user">What grants can I apply for to upgrade my building's energy systems?</div>
+            <div class="chat-label">Advisor</div>
+            <div class="chat-msg">Several schemes apply. For SMEs, the Energy Efficiency Grant (EEG) from Enterprise Singapore covers up to 70% of qualifying costs for pre-approved energy-efficient equipment. For larger industrials, EMA's Energy Efficiency Fund (E2F) supports audits and retrofits. If you're refinancing the upgrade, BREEF provides green loans at preferential rates.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- RESOURCES STRIP -->
   <section class="resources-strip">
     <div class="section-inner">
@@ -703,6 +805,7 @@
     <a href="/" class="footer-logo">sustainability<span>.sg</span></a>
     <ul class="footer-links">
       <li><a href="/resources.html">Resources</a></li>
+      <li><a href="/glossary.html">Glossary</a></li>
       <li><a href="/advisor.html">AI Advisor</a></li>
       <li><a href="https://sustainabilitysg.substack.com" target="_blank" rel="noopener">Insights</a></li>
       <li><a href="https://www.linkedin.com/in/nileshjadhav/" target="_blank" rel="noopener">LinkedIn</a></li>
@@ -825,46 +928,108 @@ async function cwSend() {
 async function loadSubstackPosts() {
   const container = document.getElementById('substack-posts');
   try {
-    const res = await fetch('/api/feed');
-    const text = await res.text();
-    const parser = new DOMParser();
-    const xml = parser.parseFromString(text, 'text/xml');
-    const items = Array.from(xml.querySelectorAll('item')).slice(0, 3);
+    const rss = 'https://sustainabilitysg.substack.com/feed';
+    const api = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rss)}&count=3`;
+    const res = await fetch(api);
+    const data = await res.json();
 
-    if (!items.length) {
+    if (data.status !== 'ok' || !data.items?.length) {
       container.innerHTML = '<div class="post-error">No posts yet. <a href="https://sustainabilitysg.substack.com" target="_blank" rel="noopener" style="color:#1D9E75;">Visit Substack</a> to read the latest.</div>';
       return;
     }
 
-container.innerHTML = items.map(item => {
-      const title = item.querySelector('title')?.textContent || '';
-      const link = item.querySelector('link')?.nextSibling?.textContent?.trim() || item.querySelector('link')?.textContent || '#';
-      const pubDate = item.querySelector('pubDate')?.textContent || '';
-      const desc = item.querySelector('description')?.textContent?.replace(/<[^>]+>/g, '').trim().slice(0, 120) + '...' || '';
-      const date = pubDate ? new Date(pubDate).toLocaleDateString('en-SG', { day: 'numeric', month: 'short', year: 'numeric' }) : '';
-
-      // Try multiple image sources from RSS
-      const mediaContent = item.getElementsByTagNameNS('*', 'content')[0]?.getAttribute('url') || '';
-      const enclosure = item.querySelector('enclosure')?.getAttribute('url') || '';
-      const descHtml = item.querySelector('description')?.textContent || '';
-      const imgInDesc = descHtml.match(/src="([^"]+\.(jpg|jpeg|png|webp))"/i)?.[1] || '';
-      const image = mediaContent || enclosure || imgInDesc;
-
+    container.innerHTML = data.items.map(post => {
+      const date = new Date(post.pubDate).toLocaleDateString('en-SG', { day: 'numeric', month: 'short', year: 'numeric' });
+      const desc = post.description?.replace(/<[^>]+>/g, '').slice(0, 120) + '...';
       return `
-        <a href="${link}" target="_blank" rel="noopener" class="insight-post">
-          ${image ? `<div class="insight-post-img" style="width:100%; height:120px; border-radius:8px; overflow:hidden; margin-bottom:10px; background:#F4FBF8;">
-            <img src="${image}" alt="${title}" style="width:100%; height:100%; object-fit:cover;">
-          </div>` : ''}
+        <a href="${post.link}" target="_blank" rel="noopener" class="insight-post">
           <div class="insight-post-date">${date}</div>
-          <div class="insight-post-title">${title}</div>
+          <div class="insight-post-title">${post.title}</div>
           <div class="insight-post-desc">${desc}</div>
         </a>`;
     }).join('');
 
-  } catch (err) {
+  } catch {
     container.innerHTML = '<div class="post-error">Could not load posts. <a href="https://sustainabilitysg.substack.com" target="_blank" rel="noopener" style="color:#1D9E75;">Visit Substack directly →</a></div>';
   }
 }
+
+loadSubstackPosts();
+
+// ── Glossary homepage teaser search ──────────────────────────────────────────
+const HT_TERMS = [
+  { term:"1.5°C Pathway", abbr:"", cat:"Climate", def:"Emissions trajectory limiting global warming to 1.5°C above pre-industrial levels, aligned with IPCC SR1.5 and Singapore's LLTEDS." },
+  { term:"BCA Green Mark", abbr:"GM", cat:"Buildings", def:"Singapore's national green building rating system, administered by the Building and Construction Authority, covering energy, water, indoor quality, and materials." },
+  { term:"Carbon Credits", abbr:"", cat:"Carbon", def:"Certificates representing one tonne of CO₂e removed or avoided, used for compliance (under ETS) or voluntary offsetting by Singapore companies." },
+  { term:"Carbon Pricing Act", abbr:"CPA", cat:"Policy", def:"Singapore legislation (2018, amended 2022) establishing the legal basis for the carbon tax and reporting obligations for large emitters." },
+  { term:"Carbon Tax", abbr:"CT", cat:"Carbon", def:"Price levied on greenhouse gas emissions. Singapore's rate is S$25/tonne (2024–25), rising to S$45 in 2026 and targeting S$50–80 by 2030." },
+  { term:"CDP", abbr:"CDP", cat:"ESG", def:"Global non-profit disclosure platform for climate, water, and forests data. Singapore-listed companies increasingly submit to CDP as part of investor engagement." },
+  { term:"Circular Economy", abbr:"CE", cat:"Circular", def:"Economic model eliminating waste by keeping materials in use through reuse, repair, remanufacturing, and recycling, aligned with NEA's Zero Waste Masterplan." },
+  { term:"Climate Reporting", abbr:"", cat:"ESG", def:"Mandatory disclosure of climate-related risks and opportunities; SGX-listed companies must report aligned with ISSB IFRS S2 from FY2025 (large caps) or FY2027." },
+  { term:"CSRD", abbr:"CSRD", cat:"ESG", def:"EU Corporate Sustainability Reporting Directive — mandatory ESG reporting framework applicable to EU and non-EU companies with significant EU operations or turnover." },
+  { term:"EEG", abbr:"EEG", cat:"Energy", def:"Energy Efficiency Grant — EDB/NEA co-funded grant for SMEs to adopt energy-efficient equipment in manufacturing, retail, food service, and hospitality sectors." },
+  { term:"EMA", abbr:"EMA", cat:"Agencies", def:"Energy Market Authority — Singapore's energy sector regulator overseeing electricity and gas markets, renewable energy, and energy security policy." },
+  { term:"ESG", abbr:"ESG", cat:"ESG", def:"Environmental, Social, and Governance — the three pillars used to assess corporate sustainability performance, increasingly required in Singapore's regulatory and investor landscape." },
+  { term:"ETS", abbr:"ETS", cat:"Carbon", def:"Emissions Trading System — market mechanism allowing entities to buy and sell allowances to emit GHGs, linked to Singapore's carbon tax compliance framework from 2024." },
+  { term:"GHG Protocol", abbr:"GHGP", cat:"Carbon", def:"World Resources Institute/WBCSD framework defining Scope 1, 2, and 3 emissions accounting standards; widely used in Singapore ESG reporting." },
+  { term:"GRI Standards", abbr:"GRI", cat:"ESG", def:"Global Reporting Initiative — voluntary sustainability reporting framework used by most Singapore-listed companies; SGX recommends it for ESG disclosures." },
+  { term:"Green Bond", abbr:"", cat:"Finance", def:"Debt instrument where proceeds are exclusively used to finance green projects; MAS's Green and Sustainability-Linked Loan Grant Scheme supports issuance costs." },
+  { term:"Green Finance", abbr:"", cat:"Finance", def:"Financial products and services supporting sustainable projects and ESG outcomes; MAS's Singapore Green Finance Centre and taxonomy drive the local market." },
+  { term:"Green Mark", abbr:"GM", cat:"Buildings", def:"See BCA Green Mark — Singapore's rating system for green buildings. GM Platinum Plus is the top tier; Super Low Energy (SLE) buildings exceed minimum energy standards by 60%+." },
+  { term:"Green Plan 2030", abbr:"SGP30", cat:"Policy", def:"Singapore's whole-of-government sustainability plan with targets across energy, waste, transport, buildings, and nature by 2030, anchored to the Paris Agreement." },
+  { term:"GreenTech Grant", abbr:"", cat:"Finance", def:"EDB grant supporting Singapore companies to adopt or develop green technologies across energy, water, waste, and carbon capture domains." },
+  { term:"ISSB", abbr:"ISSB", cat:"ESG", def:"International Sustainability Standards Board — IFRS S1 (general sustainability) and IFRS S2 (climate) are the baseline for Singapore's mandatory climate disclosure from FY2025." },
+  { term:"LLTEDS", abbr:"LLTEDS", cat:"Policy", def:"Long-Term Low Emissions Development Strategy — Singapore's 2050 net zero commitment published in 2022, setting the trajectory for carbon tax, clean energy, and green buildings." },
+  { term:"MAS", abbr:"MAS", cat:"Agencies", def:"Monetary Authority of Singapore — Singapore's central bank and financial regulator, driving ESG disclosure requirements, green taxonomy, and sustainable finance frameworks." },
+  { term:"NEA", abbr:"NEA", cat:"Agencies", def:"National Environment Agency — regulates carbon tax administration, industrial pollution, waste, and EPR schemes; operates the National Greenhouse Gas Reporting Programme." },
+  { term:"Net Zero", abbr:"", cat:"Climate", def:"State where GHG emissions are balanced by removals; Singapore targets net zero by 2050 under LLTEDS, with interim carbon budget milestones." },
+  { term:"Paris Agreement", abbr:"", cat:"Climate", def:"2015 UNFCCC accord binding 196 parties to limit warming to well below 2°C. Singapore's NDC commits to 60MtCO₂e peak by 2030 and net zero by 2050." },
+  { term:"PCAF", abbr:"PCAF", cat:"Finance", def:"Partnership for Carbon Accounting Financials — global standard for measuring and disclosing financed emissions, adopted by Singapore banks including DBS, OCBC, and UOB." },
+  { term:"RE100", abbr:"RE100", cat:"Energy", def:"Global corporate renewable energy initiative requiring members to source 100% renewable electricity; Singaporean MNCs join as part of global HQ sustainability commitments." },
+  { term:"Scope 1", abbr:"", cat:"Carbon", def:"Direct GHG emissions from sources owned or controlled by the reporting company (e.g. on-site combustion, company vehicles)." },
+  { term:"Scope 2", abbr:"", cat:"Carbon", def:"Indirect emissions from purchased electricity, heat, or steam. Market-based (using RECs) or location-based methods apply; Singapore's grid emission factor is published by EMA." },
+  { term:"Scope 3", abbr:"", cat:"Carbon", def:"All other indirect value-chain emissions — upstream (supply chain) and downstream (product use, end-of-life). Mandatory in ISSB S2 for material categories." },
+  { term:"SCEM", abbr:"SCEM", cat:"Energy", def:"Singapore Certified Energy Manager — professional credential by EMA/SEA recognising competency in energy auditing and management." },
+  { term:"SGX Sustainability Reporting", abbr:"", cat:"ESG", def:"SGX-mandated ESG disclosures for listed issuers. Climate (ISSB S2) mandatory from FY2025 (large caps) or FY2027; broader ESG reporting on comply-or-explain basis." },
+  { term:"SBTi", abbr:"SBTi", cat:"Carbon", def:"Science Based Targets initiative — validates corporate emissions reduction targets aligned with the Paris Agreement. Singapore companies increasingly commit to SBTi validation." },
+  { term:"TCFD", abbr:"TCFD", cat:"ESG", def:"Task Force on Climate-related Financial Disclosures — framework for disclosing governance, strategy, risk, and metrics related to climate change; basis of ISSB S2." },
+  { term:"Zero Waste Masterplan", abbr:"ZWMP", cat:"Circular", def:"Singapore's 2019 blueprint for a circular economy, targeting a 30% reduction in waste-to-landfill by 2030 through EPR, resource efficiency, and public education programmes." }
+];
+
+function slugify(t) { return t.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,''); }
+
+function htSearch() {
+  const q = document.getElementById('ht-search').value.trim().toLowerCase();
+  const box = document.getElementById('ht-results');
+  if (!q) {
+    box.innerHTML = '<div class="glossary-result-empty">Type a term above to search.</div>';
+    return;
+  }
+  const matches = HT_TERMS.filter(t =>
+    t.term.toLowerCase().includes(q) ||
+    (t.abbr && t.abbr.toLowerCase().includes(q)) ||
+    t.def.toLowerCase().includes(q)
+  ).slice(0, 4);
+  if (!matches.length) {
+    box.innerHTML = `<div class="glossary-result-empty">No match for "<strong>${q}</strong>". <a href="/glossary.html" style="color:var(--green-mid)">Browse full glossary →</a></div>`;
+    return;
+  }
+  box.innerHTML = matches.map(t => `
+    <div class="glossary-result-item" onclick="window.location='/glossary.html#term-${slugify(t.term)}'">
+      <div class="gri-term">${t.term}${t.abbr ? `<span class="gri-abbr">${t.abbr}</span>` : ''}<span class="gri-cat">${t.cat}</span></div>
+      <div class="gri-def">${t.def}</div>
+    </div>
+  `).join('');
+}
+
+// live search on keystroke
+document.getElementById('ht-search').addEventListener('input', function() {
+  if (this.value.trim().length >= 2) htSearch();
+  else document.getElementById('ht-results').innerHTML = '<div class="glossary-result-placeholder"><div class="gri-placeholder" style="width:60%"></div><div class="gri-placeholder" style="width:80%"></div><div class="gri-placeholder" style="width:45%"></div></div>';
+});
+document.getElementById('ht-search').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') htSearch();
+});
 
 loadSubstackPosts();
 </script>
