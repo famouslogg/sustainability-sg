@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Singapore Sustainability Glossary — sustainability.sg</title>
+<meta name="description" content="Comprehensive A-Z glossary of sustainability terms in Singapore context: carbon tax, Green Mark, ESG, energy efficiency, circular economy, and more.">
+<link rel="icon" type="image/png" href="/icon1.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --green-deep:  #085041;
+  --green-mid:   #1D9E75;
+  --green-light: #E1F5EE;
+  --green-pale:  #F4FBF8;
+  --ink:         #141A17;
+  --ink-mid:     #3D4F47;
+  --ink-light:   #7A9188;
+  --rule:        #D4E8E0;
+  --white:       #FFFFFF;
+  --amber:       #BA7517;
+  --amber-light: #FAEEDA;
+  --blue:        #185FA5;
+  --blue-light:  #E6F1FB;
+}
+html { scroll-behavior: smooth; }
+body { font-family: 'Inter', sans-serif; color: var(--ink); background: var(--white); font-size: 16px; line-height: 1.6; }
+
+nav {
+  position: sticky; top: 0; z-index: 200;
+  background: rgba(255,255,255,0.96); backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--rule);
+  padding: 0 2rem;
+  display: flex; align-items: center; justify-content: space-between;
+  height: 60px;
+}
+.nav-logo { font-family: 'JetBrains Mono', monospace; font-size: 15px; font-weight: 500; color: var(--green-deep); text-decoration: none; letter-spacing: -0.02em; display: flex; align-items: center; }
+.nav-links { display: flex; gap: 2rem; list-style: none; }
+.nav-links a { font-size: 14px; color: var(--ink-mid); text-decoration: none; font-weight: 500; transition: color 0.15s; }
+.nav-links a:hover { color: var(--green-mid); }
+.nav-cta { background: var(--green-mid); color: var(--white) !important; padding: 7px 18px; border-radius: 6px; }
+.nav-cta:hover { background: var(--green-deep) !important; }
+
+.page-header { background: var(--green-deep); padding: 56px 2rem 48px; }
+.page-header-inner { max-width: 1100px; margin: 0 auto; }
+.eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: #9FE1CB; margin-bottom: 12px; }
+.page-header h1 { font-family: 'DM Serif Display', serif; font-size: clamp(32px, 4vw, 52px); color: var(--white); letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 12px; }
+.page-header p { font-size: 16px; color: rgba(255,255,255,0.65); max-width: 560px; line-height: 1.7; }
+.header-stats { display: flex; gap: 32px; margin-top: 24px; flex-wrap: wrap; }
+.header-stat-num { font-family: 'DM Serif Display', serif; font-size: 28px; color: var(--white); }
+.header-stat-label { font-size: 12px; color: rgba(255,255,255,0.5); margin-top: 2px; }
+
+.controls-bar {
+  position: sticky; top: 60px; z-index: 100;
+  background: var(--white); border-bottom: 1px solid var(--rule);
+  padding: 14px 2rem;
+}
+.controls-inner { max-width: 1100px; margin: 0 auto; display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+.search-wrap { position: relative; flex: 1; min-width: 200px; max-width: 380px; }
+.search-wrap input {
+  width: 100%; padding: 9px 14px 9px 38px;
+  border: 1px solid var(--rule); border-radius: 8px;
+  font-size: 14px; font-family: 'Inter', sans-serif;
+  color: var(--ink); background: var(--green-pale);
+  outline: none; transition: border-color 0.15s;
+}
+.search-wrap input:focus { border-color: var(--green-mid); background: var(--white); }
+.search-wrap input::placeholder { color: var(--ink-light); }
+.search-icon { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); font-size: 15px; color: var(--ink-light); pointer-events: none; }
+.cats { display: flex; gap: 6px; flex-wrap: wrap; }
+.cat-btn {
+  padding: 6px 14px; border-radius: 20px;
+  border: 1px solid var(--rule); background: var(--white);
+  font-size: 12px; font-weight: 500; cursor: pointer;
+  font-family: 'Inter', sans-serif; color: var(--ink-mid);
+  transition: all 0.15s; white-space: nowrap;
+}
+.cat-btn:hover { border-color: var(--green-mid); color: var(--green-deep); }
+.cat-btn.active { background: var(--green-mid); border-color: var(--green-mid); color: var(--white); }
+.result-count { font-size: 12px; color: var(--ink-light); font-family: 'JetBrains Mono', monospace; white-space: nowrap; margin-left: auto; }
+
+.alpha-bar {
+  position: sticky; top: 117px; z-index: 90;
+  background: var(--green-pale); border-bottom: 1px solid var(--rule);
+  padding: 8px 2rem;
+}
+.alpha-inner { max-width: 1100px; margin: 0 auto; display: flex; gap: 2px; flex-wrap: wrap; }
+.alpha-btn {
+  width: 30px; height: 28px; border-radius: 6px;
+  border: none; background: transparent; cursor: pointer;
+  font-size: 13px; font-weight: 500; color: var(--ink-mid);
+  font-family: 'JetBrains Mono', monospace;
+  transition: all 0.15s; display: flex; align-items: center; justify-content: center;
+}
+.alpha-btn:hover { background: var(--green-light); color: var(--green-deep); }
+.alpha-btn.has-terms { color: var(--green-deep); }
+.alpha-btn.inactive { color: var(--rule); cursor: default; pointer-events: none; }
+
+.main { max-width: 1100px; margin: 0 auto; padding: 40px 2rem 80px; }
+.no-results { text-align: center; padding: 60px 20px; color: var(--ink-light); }
+
+.letter-section { margin-bottom: 48px; }
+.letter-heading {
+  font-family: 'DM Serif Display', serif;
+  font-size: 42px; color: var(--rule);
+  line-height: 1; margin-bottom: 16px;
+  padding-bottom: 12px; border-bottom: 1px solid var(--rule);
+  scroll-margin-top: 180px;
+}
+
+.term-card {
+  background: var(--white); border: 1px solid var(--rule);
+  border-radius: 12px; padding: 20px 24px;
+  margin-bottom: 12px; transition: border-color 0.15s, background 0.3s;
+  scroll-margin-top: 180px;
+}
+.term-card:hover { border-color: #5DCAA5; }
+.term-header { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 8px; flex-wrap: wrap; }
+.term-name { font-size: 17px; font-weight: 600; color: var(--ink); }
+.term-abbr { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--ink-light); margin-top: 3px; }
+.cat-tag {
+  font-size: 11px; font-weight: 500; padding: 3px 10px;
+  border-radius: 20px; font-family: 'JetBrains Mono', monospace;
+  white-space: nowrap; align-self: flex-start;
+}
+.cat-Carbon { background: #FAEEDA; color: #633806; }
+.cat-Buildings { background: var(--green-light); color: var(--green-deep); }
+.cat-ESG { background: var(--blue-light); color: var(--blue); }
+.cat-Energy { background: #FFF3CD; color: #856404; }
+.cat-Policy { background: #F1EFE8; color: #444441; }
+.cat-Finance { background: #E8F4E8; color: #2D6A2D; }
+.cat-Circular { background: #F0E8F8; color: #5B2D8E; }
+.cat-Climate { background: #E8F0F8; color: #1A4A7A; }
+.cat-Agencies { background: #F8E8E8; color: #8B2020; }
+
+.term-def { font-size: 15px; color: var(--ink); line-height: 1.7; margin-bottom: 8px; font-weight: 500; }
+.term-context { font-size: 14px; color: var(--ink-mid); line-height: 1.7; margin-bottom: 12px; }
+
+.term-footer { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.related-label { font-size: 11px; color: var(--ink-light); font-family: 'JetBrains Mono', monospace; text-transform: uppercase; letter-spacing: 0.06em; }
+.related-chip {
+  font-size: 12px; padding: 3px 10px; border-radius: 20px;
+  border: 1px solid var(--rule); color: var(--green-deep);
+  text-decoration: none; background: var(--green-pale);
+  transition: all 0.15s; cursor: pointer;
+  font-family: 'Inter', sans-serif;
+}
+.related-chip:hover { background: var(--green-light); border-color: var(--green-mid); }
+.term-links { display: flex; gap: 8px; margin-left: auto; flex-wrap: wrap; }
+.term-link {
+  font-size: 12px; padding: 4px 12px; border-radius: 6px;
+  text-decoration: none; font-weight: 500; transition: all 0.15s;
+  display: inline-flex; align-items: center; gap: 4px;
+}
+.term-link.source { color: var(--green-mid); border: 1px solid var(--rule); background: var(--white); }
+.term-link.source:hover { border-color: var(--green-mid); background: var(--green-pale); }
+.term-link.article { color: var(--white); background: var(--green-mid); border: 1px solid var(--green-mid); }
+.term-link.article:hover { background: var(--green-deep); border-color: var(--green-deep); }
+
+.suggest-strip { background: var(--green-pale); border-top: 1px solid var(--rule); padding: 40px 2rem; text-align: center; }
+.suggest-strip h2 { font-family: 'DM Serif Display', serif; font-size: 26px; color: var(--ink); margin-bottom: 8px; }
+.suggest-strip p { font-size: 15px; color: var(--ink-mid); margin-bottom: 20px; }
+.btn-suggest { display: inline-flex; align-items: center; gap: 8px; padding: 11px 24px; background: var(--green-mid); color: var(--white); border-radius: 8px; text-decoration: none; font-size: 14px; font-weight: 500; transition: background 0.15s; }
+.btn-suggest:hover { background: var(--green-deep); }
+
+footer { background: var(--ink); padding: 40px 2rem; }
+.footer-inner { max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+.footer-logo { font-family: 'JetBrains Mono', monospace; font-size: 15px; color: rgba(255,255,255,0.9); text-decoration: none; }
+.footer-logo span { color: var(--green-mid); }
+.footer-links { display: flex; gap: 24px; list-style: none; }
+.footer-links a { color: rgba(255,255,255,0.4); text-decoration: none; font-size: 14px; transition: color 0.15s; }
+.footer-links a:hover { color: var(--green-mid); }
+.footer-copy { font-size: 13px; color: rgba(255,255,255,0.4); }
+
+@media (max-width: 768px) {
+  nav { padding: 0 1rem; }
+  .nav-links { display: none; }
+  .controls-bar, .alpha-bar { padding: 10px 1rem; }
+  .alpha-btn { width: 24px; height: 24px; font-size: 12px; }
+  .main { padding: 28px 1rem 60px; }
+  .term-links { margin-left: 0; margin-top: 8px; }
+  .alpha-bar { top: 108px; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">
+    <img src="/icon1.png" alt="sustainability.sg" style="height:47px;width:47px;border-radius:8px;vertical-align:middle;margin-right:8px;">
+    <span style="vertical-align:middle;">sustainability<span style="color:#1D9E75;">.sg</span></span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="/resources.html">Resources</a></li>
+    <li><a href="/advisor.html">AI Advisor</a></li>
+    <li><a href="/glossary.html" style="color:var(--green-mid);">Glossary</a></li>
+    <li><a href="https://sustainabilitysg.substack.com" target="_blank" rel="noopener">Insights</a></li>
+    <li><a href="/advisor.html" class="nav-cta">Ask the Advisor</a></li>
+  </ul>
+</nav>
+
+<div class="page-header">
+  <div class="page-header-inner">
+    <div class="eyebrow">Singapore sustainability</div>
+    <h1>Sustainability glossary</h1>
+    <p>Plain-English definitions of sustainability terms in the Singapore context, from carbon tax to circular economy, ESG to green buildings.</p>
+    <div class="header-stats">
+      <div>
+        <div class="header-stat-num" id="total-count">168</div>
+        <div class="header-stat-label">Terms defined</div>
+      </div>
+      <div>
+        <div class="header-stat-num">9</div>
+        <div class="header-stat-label">Categories</div>
+      </div>
+      <div>
+        <div class="header-stat-num">A–Z</div>
+        <div class="header-stat-label">Alphabetical index</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="controls-bar">
+  <div class="controls-inner">
+    <div class="search-wrap">
+      <span class="search-icon">&#9906;</span>
+      <input type="text" id="search-input" placeholder="Search terms..." oninput="filterGlossary()">
+    </div>
+    <div class="cats">
+      <button class="cat-btn active" onclick="setCategory('All',this)">All</button>
+      <button class="cat-btn" onclick="setCategory('Carbon',this)">Carbon</button>
+      <button class="cat-btn" onclick="setCategory('Buildings',this)">Buildings</button>
+      <button class="cat-btn" onclick="setCategory('ESG',this)">ESG</button>
+      <button class="cat-btn" onclick="setCategory('Energy',this)">Energy</button>
+      <button class="cat-btn" onclick="setCategory('Policy',this)">Policy</button>
+      <button class="cat-btn" onclick="setCategory('Finance',this)">Finance</button>
+      <button class="cat-btn" onclick="setCategory('Circular',this)">Circular</button>
+      <button class="cat-btn" onclick="setCategory('Climate',this)">Climate</button>
+      <button class="cat-btn" onclick="setCategory('Agencies',this)">Agencies</button>
+    </div>
+    <span class="result-count" id="result-count"></span>
+  </div>
+</div>
+
+<div class="alpha-bar">
+  <div class="alpha-inner" id="alpha-bar"></div>
+</div>
+
+<main class="main" id="glossary-main"></main>
+
+<div class="suggest-strip">
+  <h2>Missing a term?</h2>
+  <p>Ask the AI Advisor or suggest a term to add to the glossary.</p>
+  <a href="/advisor.html" class="btn-suggest">Ask the AI Advisor</a>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <a href="/" class="footer-logo">sustainability<span>.sg</span></a>
+    <ul class="footer-links">
+      <li><a href="/resources.html">Resources</a></li>
+      <li><a href="/glossary.html">Glossary</a></li>
+      <li><a href="/advisor.html">AI Advisor</a></li>
+      <li><a href="https://sustainabilitysg.substack.com" target="_blank" rel="noopener">Insights</a></li>
+      <li><a href="https://www.linkedin.com/in/nileshjadhav/" target="_blank" rel="noopener">LinkedIn</a></li>
+    </ul>
+    <p class="footer-copy">Definitions are informational. Verify with official agency sources for compliance purposes.</p>
+  </div>
+</footer>
+
+<script>
+const TERMS = [
+  { term: "Absolute Emissions", abbr: "", cat: "Carbon", def: "The total volume of greenhouse gases emitted by an entity in a given period, measured in tonnes of CO2 equivalent.", context: "Distinct from emissions intensity. Singapore's carbon tax applies to facilities emitting above 25,000 tCO2e per year in absolute terms.", related: ["Carbon Tax", "GHG Protocol", "Scope 1 Emissions"], source: "https://www.nea.gov.sg", sourceLabel: "NEA", article: "" },
+  { term: "Article 6", abbr: "", cat: "Carbon", def: "The section of the Paris Agreement that establishes frameworks for international carbon market mechanisms and cooperative approaches.", context: "Singapore has signed bilateral Article 6 agreements with countries including Papua New Guinea and Ghana, allowing Singapore entities to use internationally transferred mitigation outcomes (ITMOs) toward carbon tax obligations.", related: ["Paris Agreement", "Carbon Credits", "Carbon Tax", "Voluntary Carbon Market"], source: "", sourceLabel: "", article: "" },
+  { term: "Avoided Emissions", abbr: "", cat: "Carbon", def: "Greenhouse gas reductions that occur outside an organisation's value chain as a result of its products or services.", context: "Relevant for Singapore technology and solution providers claiming climate benefits from energy-efficient products sold to customers.", related: ["Scope 3 Emissions", "Carbon Credits"], source: "", sourceLabel: "", article: "" },
+  { term: "BCA", abbr: "Building and Construction Authority", cat: "Agencies", def: "Singapore's statutory board responsible for the built environment, including green building standards and regulations.", context: "BCA administers the Green Mark scheme, the Green Building MasterPlan, and building codes. Under the Ministry of National Development.", related: ["Green Mark", "Green Building MasterPlan", "Super Low Energy"], source: "https://www.bca.gov.sg", sourceLabel: "BCA", article: "" },
+  { term: "Baseline Emissions", abbr: "", cat: "Carbon", def: "The reference level of greenhouse gas emissions against which reductions are measured.", context: "Singapore uses 2005 as the baseline year for most energy efficiency and green building improvement targets.", related: ["Business as Usual", "Carbon Intensity", "GHG Protocol"], source: "", sourceLabel: "", article: "" },
+  { term: "Biodiversity Net Gain", abbr: "BNG", cat: "Climate", def: "An approach to development that leaves biodiversity in a measurably better state than before.", context: "Emerging consideration in Singapore's urban greening strategy under the Singapore Green Plan 2030 Nature-in-Urban-Spaces vision.", related: ["Singapore Green Plan 2030", "Urban Heat Island", "Green Corridors"], source: "", sourceLabel: "", article: "" },
+  { term: "Blue Carbon", abbr: "", cat: "Climate", def: "Carbon stored in coastal and marine ecosystems such as mangroves, seagrasses, and salt marshes.", context: "Singapore and ASEAN nations are developing frameworks to value mangrove carbon as tradeable credits under Article 6 mechanisms.", related: ["Carbon Credits", "Nature-Based Solutions", "Article 6"], source: "", sourceLabel: "", article: "" },
+  { term: "BREEF", abbr: "Building Retrofit Energy Efficiency Financing", cat: "Finance", def: "A green loan facility at preferential rates for energy-efficient building retrofits and equipment upgrades.", context: "Administered by BCA in partnership with participating financial institutions. Designed to help building owners finance Green Mark improvements.", related: ["Green Mark", "Energy Efficiency Grant", "Green Finance"], source: "https://www.bca.gov.sg", sourceLabel: "BCA", article: "" },
+  { term: "Business as Usual", abbr: "BAU", cat: "Carbon", def: "A reference scenario projecting future emissions if no new climate policies or measures were implemented.", context: "Used in Singapore's climate modelling to estimate emission trajectories and assess the impact of carbon pricing and energy efficiency policies.", related: ["Baseline Emissions", "Carbon Tax", "Net Zero"], source: "", sourceLabel: "", article: "" },
+  { term: "Carbon Budget", abbr: "", cat: "Carbon", def: "The maximum amount of carbon dioxide that can be emitted globally while keeping warming within a specific temperature limit.", context: "The IPCC's remaining 1.5 degrees Celsius carbon budget informs Singapore's long-term emissions pathway and net zero 2050 commitment.", related: ["Net Zero", "Paris Agreement", "IPCC"], source: "", sourceLabel: "", article: "" },
+  { term: "Carbon Credits", abbr: "CC", cat: "Carbon", def: "A tradeable certificate representing the reduction or removal of one tonne of CO2 equivalent from the atmosphere.", context: "Singapore allows companies to use eligible international carbon credits to offset up to 5% of their carbon tax liability under the Carbon Pricing Act.", related: ["Carbon Tax", "Carbon Pricing Act", "Article 6", "Voluntary Carbon Market"], source: "https://www.nea.gov.sg", sourceLabel: "NEA", article: "" },
+  { term: "Carbon Intensity", abbr: "CI", cat: "Carbon", def: "Greenhouse gas emissions per unit of economic output, energy produced, or product manufactured.", context: "Singapore tracks carbon intensity of its economy (tCO2 per GDP dollar) as one of its key climate metrics alongside absolute emissions.", related: ["Absolute Emissions", "Baseline Emissions", "Carbon Tax"], source: "", sourceLabel: "", article: "" },
+  { term: "Carbon Neutral", abbr: "", cat: "Carbon", def: "A state where the net carbon dioxide emissions from an entity are zero, typically achieved through a combination of reductions and offsets.", context: "Distinct from net zero, which covers all greenhouse gases. Many Singapore companies target carbon neutrality as an interim milestone before net zero.", related: ["Net Zero", "Carbon Credits", "Carbon Offsets"], source: "", sourceLabel: "", article: "" },
+  { term: "Carbon Offsets", abbr: "", cat: "Carbon", def: "Reductions in emissions or removal of carbon dioxide from the atmosphere used to compensate for emissions elsewhere.", context: "Singapore companies use offsets from verified projects (VCS, Gold Standard) to meet voluntary targets. Regulatory use is governed by NEA criteria.", related: ["Carbon Credits", "Voluntary Carbon Market", "REDD+"], source: "", sourceLabel: "", article: "" },
+  { term: "Carbon Pricing Act", abbr: "CPA", cat: "Policy", def: "Singapore's legislation establishing the legal framework for the carbon tax on greenhouse gas emissions.", context: "Enacted in 2018, amended to raise the carbon tax trajectory. Administered by NEA. Covers facilities emitting 25,000 tCO2e or more per year.", related: ["Carbon Tax", "NEA", "GHG Reporting"], source: "https://sso.agc.gov.sg", sourceLabel: "Singapore Statutes", article: "" },
+  { term: "Carbon Tax", abbr: "CT", cat: "Carbon", def: "A price levied on greenhouse gas emissions to incentivise businesses to reduce their carbon footprint.", context: "Singapore introduced carbon tax in 2019 at S$5/tonne. Raised to S$25 in 2024, S$45 in 2026, and targeting S$50-80/tonne by 2030. Administered by NEA under the Carbon Pricing Act.", related: ["Carbon Pricing Act", "NEA", "GHG Reporting", "Carbon Credits"], source: "https://www.nea.gov.sg/our-services/pollution-control/air-pollution/carbon-tax", sourceLabel: "NEA", article: "" },
+  { term: "CDP", abbr: "Carbon Disclosure Project", cat: "ESG", def: "A global non-profit that runs the world's leading environmental disclosure platform for companies, cities, and governments.", context: "Many Singapore-listed companies and government agencies submit annual CDP disclosures on climate, water, and forests as part of their ESG reporting.", related: ["ESG Reporting", "TCFD", "GRI Standards"], source: "https://www.cdp.net", sourceLabel: "CDP", article: "" },
+  { term: "Chiller Plant", abbr: "", cat: "Buildings", def: "The central cooling system in a building that produces chilled water for air-conditioning, typically the largest energy consumer in tropical buildings.", context: "Chiller plant efficiency (measured in kW/RT) is a primary focus of Singapore's green building and energy audit programmes under BCA and EMA.", related: ["Green Mark", "Energy Audit", "Energy Use Intensity"], source: "", sourceLabel: "", article: "" },
+  { term: "Circular Economy", abbr: "CE", cat: "Circular", def: "An economic model that eliminates waste and keeps materials in use through reuse, repair, remanufacturing, and recycling.", context: "Singapore's Zero Waste Masterplan and Circular Economy Strategy target a 30% domestic waste recycling rate and circular approaches in food, e-waste, and construction.", related: ["Zero Waste Masterplan", "Extended Producer Responsibility", "Recycling"], source: "https://www.nea.gov.sg", sourceLabel: "NEA", article: "" },
+  { term: "Climate Risk", abbr: "", cat: "Climate", def: "The potential for adverse consequences from climate change impacts or climate policy changes on organisations, assets, or systems.", context: "MAS Environmental Risk Management guidelines require Singapore financial institutions to assess and disclose physical and transition climate risks.", related: ["MAS EnRM", "TCFD", "Physical Risk", "Transition Risk"], source: "https://www.mas.gov.sg", sourceLabel: "MAS", article: "" },
+  { term: "Climate Transition Plan", abbr: "CTP", cat: "ESG", def: "A company's strategy for reducing greenhouse gas emissions in alignment with global temperature goals.", context: "Increasingly required as part of ESG disclosures for SGX-listed companies, particularly under ISSB S2 framework adoption by MAS.", related: ["Net Zero", "ISSB", "SGX Sustainability Reporting", "Science-Based Targets"], source: "", sourceLabel: "", article: "" },
+  { term: "Co-generation", abbr: "Cogen", cat: "Energy", def: "The simultaneous production of electricity and useful heat from the same energy source, improving overall energy efficiency.", context: "Used in Singapore's industrial facilities and some commercial buildings as part of energy efficiency strategies eligible under EMA efficiency schemes.", related: ["Energy Efficiency", "Energy Conservation Act", "SCEM"], source: "", sourceLabel: "", article: "" },
+  { term: "Construction Waste Management", abbr: "CWM", cat: "Circular", def: "Strategies and processes to reduce, reuse, and recycle waste generated from construction and demolition activities.", context: "Singapore has a Construction Waste Management Plan requirement under BCA. The construction sector generates significant volumes of concrete and steel waste.", related: ["Circular Economy", "Green Mark", "Zero Waste Masterplan"], source: "https://www.bca.gov.sg", sourceLabel: "BCA", article: "" },
+  { term: "COP", abbr: "Conference of the Parties", cat: "Policy", def: "The annual climate summit under the UN Framework Convention on Climate Change where nations negotiate global climate commitments.", context: "Singapore is an active participant at COP. Key milestones: COP21 (Paris Agreement, 2015), COP26 (Glasgow, 2021), COP28 (Dubai, 2023).", related: ["Paris Agreement", "UNFCCC", "NDC"], source: "", sourceLabel: "", article: "" },
+  { term: "Corporate Sustainability Reporting Directive", abbr: "CSRD", cat: "ESG", def: "The European Union directive requiring large companies to report on environmental, social, and governance matters using European Sustainability Reporting Standards.", context: "Affects Singapore companies with EU operations or subsidiaries. MNCs operating in Singapore may need to comply if they meet EU revenue thresholds.", related: ["ESG Reporting", "GRI Standards", "ISSB", "Double Materiality"], source: "", sourceLabel: "", article: "" },
+  { term: "Data Centre Energy Efficiency", abbr: "DCEE", cat: "Energy", def: "Measures to reduce the energy consumed by data centres relative to their IT load, typically measured by Power Usage Effectiveness (PUE).", context: "Singapore's data centre sector is large relative to land area. EMA and IMDA have specific energy efficiency guidelines and moratoriums on new capacity.", related: ["Power Usage Effectiveness", "Energy Efficiency Grant", "EMA"], source: "https://www.ema.gov.sg", sourceLabel: "EMA", article: "" },
+  { term: "Decarbonisation", abbr: "", cat: "Carbon", def: "The process of reducing or eliminating greenhouse gas emissions from an activity, sector, or economy.", context: "Singapore's decarbonisation roadmap covers four pillars: solar energy, low-carbon imports, carbon capture, and emerging low-carbon technologies. Administered across EDB, EMA, and NEA.", related: ["Net Zero", "Carbon Tax", "Low-Carbon Hydrogen", "Carbon Capture"], source: "", sourceLabel: "", article: "" },
+  { term: "Double Materiality", abbr: "", cat: "ESG", def: "An assessment framework that considers both how sustainability issues affect a company (financial materiality) and how the company affects society and environment (impact materiality).", context: "Used in the EU CSRD framework. Singapore's SGX reporting currently focuses on financial materiality, but ISSB and stakeholder expectations are evolving.", related: ["Materiality Assessment", "CSRD", "GRI Standards", "ESG Reporting"], source: "", sourceLabel: "", article: "" },
+  { term: "E-waste", abbr: "", cat: "Circular", def: "Discarded electrical and electronic equipment, including computers, mobile phones, and household appliances.", context: "Singapore's Extended Producer Responsibility (EPR) for e-waste, administered by NEA, requires producers and retailers to fund proper collection and recycling.", related: ["Extended Producer Responsibility", "NEA", "Circular Economy"], source: "https://www.nea.gov.sg", sourceLabel: "NEA", article: "" },
+  { term: "EDB", abbr: "Economic Development Board", cat: "Agencies", def: "Singapore's lead agency for planning and executing strategies to sustain Singapore's position as a global business hub.", context: "EDB drives industrial decarbonisation, attracts green investments, and leads initiatives for industrial transformation and clean energy adoption.", related: ["Energy Efficiency", "Low-Carbon Hydrogen", "Singapore Green Plan 2030"], source: "https://www.edb.gov.sg", sourceLabel: "EDB", article: "" },
+  { term: "EMA", abbr: "Energy Market Authority", cat: "Agencies", def: "Singapore's statutory board that regulates the energy sector, administers energy efficiency policies, and plans the energy supply transition.", context: "EMA administers the Energy Conservation Act, SCEM certification, energy efficiency grants, and Singapore's solar deployment programmes.", related: ["Energy Conservation Act", "SCEM", "Energy Efficiency Grant", "SolarNova"], source: "https://www.ema.gov.sg", sourceLabel: "EMA", article: "" },
+  { term: "Embodied Carbon", abbr: "", cat: "Buildings", def: "Greenhouse gas emissions associated with building materials and construction processes throughout the building lifecycle, excluding operational energy use.", context: "Growing focus in Singapore as operational carbon reduces through Green Mark. BCA is developing whole-life carbon assessment frameworks for buildings.", related: ["Whole-Life Carbon", "Green Mark", "Net Zero Carbon Buildings"], source: "", sourceLabel: "", article: "" },
+  { term: "Energy Audit", abbr: "", cat: "Energy", def: "A systematic inspection and analysis of energy use in a building or facility to identify opportunities for improvement and cost savings.", context: "Mandatory under Singapore's Energy Conservation Act for large energy users. Carried out by Singapore Certified Energy Managers (SCEM) or qualified assessors.", related: ["Energy Conservation Act", "SCEM", "Energy Efficiency", "Energy Use Intensity"], source: "https://www.ema.gov.sg", sourceLabel: "EMA", article: "" },
+  { term: "Energy Conservation Act", abbr: "ECA", cat: "Policy", def: "Singapore legislation requiring large energy consumers to implement energy management systems, conduct audits, and report energy use.", context: "Applies to corporations consuming 54 TJ or more per year. Administered by EMA. Requires appointment of a SCEM and annual energy reporting.", related: ["EMA", "SCEM", "Energy Audit", "Large Energy User"], source: "https://www.ema.gov.sg", sourceLabel: "EMA", article: "" },
+  { term: "Energy Efficiency", abbr: "EE", cat: "Energy", def: "Using less energy to provide the same level of energy service or output.", context: "A core pillar of Singapore's climate strategy. Targets include 35% improvement in energy intensity by 2030 from 2005 levels across key sectors.", related: ["Energy Conservation Act", "SCEM", "Green Mark", "Energy Efficiency Grant"], source: "", sourceLabel: "", article: "" },
+  { term: "Energy Efficiency Grant", abbr: "EEG", cat: "Finance", def: "Enterprise Singapore's co-funding scheme supporting businesses to invest in pre-approved energy-efficient equipment.", context: "Covers food services, manufacturing, retail, construction, data centres, and maritime sectors. SMEs receive up to 70% support, non-SMEs up to 30%. Cap of S$30,000 for Base Tier. Extended to March 2027, Base Tier expanding to all sectors by March 2028.", related: ["Enterprise Singapore", "Energy Efficiency", "SME", "BREEF"], source: "https://www.enterprisesg.gov.sg/financial-support/energy-efficiency-grant", sourceLabel: "EnterpriseSG", article: "" },
+  { term: "Energy Management System", abbr: "EnMS", cat: "Energy", def: "A systematic framework for monitoring, controlling, and improving an organisation's energy performance, typically certified to ISO 50001.", context: "ISO 50001-certified EnMS is required for large energy users under Singapore's Energy Conservation Act, enabling structured energy management and reporting.", related: ["Energy Conservation Act", "SCEM", "Energy Audit", "ISO 50001"], source: "", sourceLabel: "", article: "" },
+  { term: "Energy Use Intensity", abbr: "EUI", cat: "Buildings", def: "A measure of energy consumption per unit of floor area, typically expressed as kWh per square metre per year for buildings.", context: "Primary metric for building energy performance under Singapore's Green Mark scheme. BCA publishes EUI benchmarks by building type.", related: ["Green Mark", "Super Low Energy", "Energy Audit", "BCA"], source: "https://www.bca.gov.sg", sourceLabel: "BCA", article: "" },
+  { term: "Enterprise Singapore", abbr: "EnterpriseSG", cat: "Agencies", def: "Singapore's government agency that champions enterprise development, administers SME grants, and supports Singapore companies in growing internationally.", context: "Administers the Energy Efficiency Grant (EEG) for SMEs in food services, retail, manufacturing, and other sectors.", related: ["Energy Efficiency Grant", "SME", "EEG"], source: "https://www.enterprisesg.gov.sg", sourceLabel: "EnterpriseSG", article: "" },
+  { term: "Environmental Impact Assessment", abbr: "EIA", cat: "Policy", def: "A process to evaluate the likely environmental effects of a proposed project or development before a decision is made to proceed.", context: "Required for major developments in Singapore such as large industrial facilities, port expansions, and infrastructure projects.", related: ["NEA", "Urban Redevelopment Authority", "Environmental Management Plan"], source: "", sourceLabel: "", article: "" },
+  { term: "ESG", abbr: "Environmental, Social and Governance", cat: "ESG", def: "A framework for evaluating a company's performance and risk exposure across environmental stewardship, social responsibility, and corporate governance dimensions.", context: "SGX requires all listed companies to publish annual sustainability reports addressing ESG factors. MAS has issued guidelines for financial institutions.", related: ["SGX Sustainability Reporting", "GRI Standards", "TCFD", "ISSB"], source: "", sourceLabel: "", article: "" },
+  { term: "ESG Reporting", abbr: "", cat: "ESG", def: "The process of disclosing an organisation's environmental, social, and governance performance, risks, and strategies to stakeholders.", context: "Mandatory for all SGX-listed companies since FY2017. Climate-related disclosures aligned with TCFD phased in from FY2022 for large-cap. ISSB S1/S2 frameworks being adopted.", related: ["ESG", "GRI Standards", "SGX Sustainability Reporting", "TCFD", "ISSB"], source: "https://www.sgx.com", sourceLabel: "SGX", article: "" },
+  { term: "Extended Producer Responsibility", abbr: "EPR", cat: "Circular", def: "A policy that makes producers responsible for the end-of-life management of their products.", context: "Singapore implements EPR for packaging, e-waste, and food waste under NEA. Producers and retailers must fund proper collection and recycling infrastructure.", related: ["NEA", "Circular Economy", "E-waste", "Packaging Waste"], source: "https://www.nea.gov.sg", sourceLabel: "NEA", article: "" },
+  { term: "Floating Solar", abbr: "FPV", cat: "Energy", def: "Photovoltaic panels installed on water bodies such as reservoirs, ponds, or the sea rather than on land or rooftops.", context: "Singapore's land constraint makes floating solar a key deployment option. Notable installations on Tengeh Reservoir (60MWp) and pilots at Kranji.", related: ["Solar Energy", "SolarNova", "Renewable Energy", "EMA"], source: "https://www.ema.gov.sg", sourceLabel: "EMA", article: "" },
+  { term: "Food Waste", abbr: "", cat: "Circular", def: "Food and food-related packaging discarded along the supply chain from production to consumption.", context: "Singapore generates around 665,000 tonnes of food waste annually. NEA's food waste minimisation programmes target a 30% reduction in the amount sent to Semakau Landfill.", related: ["Zero Waste Masterplan", "Circular Economy", "NEA", "Semakau Landfill"], source: "https://www.nea.gov.sg", sourceLabel: "NEA", article: "" },
+  { term: "GHG Protocol", abbr: "", cat: "Carbon", def: "The most widely used international accounting standard for measuring and managing greenhouse gas emissions.", context: "Forms the basis for Singapore's carbon tax reporting and most corporate ESG disclosures. Defines Scope 1, 2, and 3 emissions boundaries.", related: ["Scope 1 Emissions", "Scope 2 Emissions", "Scope 3 Emissions", "Carbon Tax"], source: "https://ghgprotocol.org", sourceLabel: "GHG Protocol", article: "" },
+  { term: "GHG Reporting", abbr: "", cat: "Carbon", def: "The systematic measurement and disclosure of an organisation's greenhouse gas emissions across all applicable scopes.", context: "Mandatory for large emitters under Singapore's Carbon Pricing Act. Voluntary for others, with increasing stakeholder pressure via ESG reporting requirements.", related: ["Carbon Pricing Act", "GHG Protocol", "Scope 1 Emissions", "NEA"], source: "https://www.nea.gov.sg", sourceLabel: "NEA", article: "" },
+  { term: "Gold Standard", abbr: "GS", cat: "Carbon", def: "A leading certification standard for carbon credits from climate protection and sustainable development projects.", context: "Gold Standard-certified credits are among the eligible offset types accepted under Singapore's carbon tax offset mechanism.", related: ["Carbon Credits", "Voluntary Carbon Market", "Verra VCS"], source: "https://www.goldstandard.org", sourceLabel: "Gold Standard", article: "" },
+  { term: "Green Bonds", abbr: "", cat: "Finance", def: "Fixed-income instruments where proceeds are used exclusively to fund projects with environmental benefits.", context: "Singapore has an active green bond market. The Singapore Government has issued sovereign green bonds to fund green infrastructure. MAS sets the Singapore-Asia Taxonomy for green bond eligibility.", related: ["Green Finance", "MAS", "Sustainability-Linked Loans", "Singapore-Asia Taxonomy"], source: "https://www.mas.gov.sg", sourceLabel: "MAS", article: "" },
+  { term: "Green Building", abbr: "", cat: "Buildings", def: "A building designed, constructed, and operated to minimise its environmental impact while maximising efficiency, health, and comfort.", context: "Singapore aims for 80% of all buildings by gross floor area to be Green Mark certified by 2030 under the Green Building MasterPlan.", related: ["Green Mark", "BCA", "Green Building MasterPlan", "Energy Use Intensity"], source: "https://www.bca.gov.sg", sourceLabel: "BCA", article: "" },
+  { term: "Green Building MasterPlan", abbr: "GBMP", cat: "Buildings", def: "Singapore's strategic plan for improving the sustainability performance of the built environment.", context: "Currently in its 4th edition (2021). Key targets include 80% Green Mark buildings by 2030, 80% of new buildings being Super Low Energy, and net zero for new buildings from 2030.", related: ["BCA", "Green Mark", "Super Low Energy", "Net Zero Carbon Buildings"], source: "https://www.bca.gov.sg", sourceLabel: "BCA", article: "" },
+  { term: "Green Corridors", abbr: "", cat: "Climate", def: "Continuous stretches of green space connecting parks, nature reserves, and biodiversity areas to allow wildlife movement.", context: "Part of Singapore's Nature in Urban Spaces strategy under the Singapore Green Plan 2030. The Round Island Route and Park Connector Network form the backbone.", related: ["Singapore Green Plan 2030", "Biodiversity Net Gain", "Urban Heat Island"], source: "", sourceLabel: "", article: "" },
+  { term: "Green Finance", abbr: "", cat: "Finance", def: "Financial instruments and services that channel capital towards environmentally sustainable projects and activities.", context: "MAS's Green Finance Action Plan aims to make Singapore a leading green finance hub in Asia. Covers green bonds, sustainability-linked loans, and ESG fund standards.", related: ["MAS", "Green Bonds", "Sustainability-Linked Loans", "ISSB"], source: "https://www.mas.gov.sg", sourceLabel: "MAS", article: "" },
+  { term: "Green Lease", abbr: "", cat: "Buildings", def: "A lease agreement that includes clauses committing both landlord and tenant to environmental sustainability standards and data sharing.", context: "BCA's Green Lease Toolkit provides a framework for Singapore building owners and tenants to align on energy targets, metering, and sustainability performance.", related: ["BCA", "Green Mark", "Energy Use Intensity", "ESG Reporting"], source: "https://www.bca.gov.sg", sourceLabel: "BCA", article: "" },
+  { term: "Green Mark", abbr: "GM", cat: "Buildings", def: "Singapore's green building rating system that assesses buildings on energy efficiency, water efficiency, environmental protection, indoor environment quality, and other green features.", context: "Administered by BCA. Five certification levels: Certified, Gold, GoldPLUS, Platinum, and Platinum Super Low Energy (PSLE). Mandatory for new buildings and major retrofits.", related: ["BCA", "Green Building MasterPlan", "Super Low Energy", "Energy Use Intensity"], source: "https://www.bca.gov.sg/greenmark", sourceLabel: "BCA", article: "" },
+  { term: "Green Shipping", abbr: "", cat: "Energy", def: "Measures to reduce the environmental impact of shipping, including fuel switching, slow steaming, and alternative propulsion.", context: "Singapore, as one of the world's largest ports, is developing Green and Digital Shipping Corridor initiatives and green fuel bunkering capabilities at MPA.", related: ["MPA", "Low-Carbon Hydrogen", "Sustainable Aviation Fuel", "Decarbonisation"], source: "", sourceLabel: "", article: "" },
+  { term: "Greenwashing", abbr: "", cat: "ESG", def: "Making misleading or unsubstantiated claims about the environmental benefits of a product, service, or company.", context: "MAS and consumer protection agencies in Singapore are increasingly vigilant about greenwashing in financial products, retail, and corporate communications.", related: ["ESG Reporting", "Green Finance", "MAS"], source: "", sourceLabel: "", article: "" },
+  { term: "GRI Standards", abbr: "Global Reporting Initiative", cat: "ESG", def: "The world's most widely used standards for sustainability reporting, providing a common language for organisations to disclose ESG impacts.", context: "Commonly used by Singapore-listed companies for sustainability reporting to SGX. GRI-certified training is available in Singapore through authorised providers.", related: ["ESG Reporting", "SGX Sustainability Reporting", "TCFD", "ISSB"], source: "https://www.globalreporting.org", sourceLabel: "GRI", article: "" },
+  { term: "Haze", abbr: "", cat: "Climate", def: "Atmospheric condition where particulate matter, typically from fires, reduces visibility and air quality.", context: "Transboundary haze from biomass burning in the region is a recurring issue in Singapore. NEA monitors the Pollutant Standards Index (PSI) and enforces the Transboundary Haze Pollution Act.", related: ["NEA", "PSI", "Transboundary Haze Pollution Act"], source: "https://www.nea.gov.sg", sourceLabel: "NEA", article: "" },
+  { term: "HDB", abbr: "Housing and Development Board", cat: "Agencies", def: "Singapore's public housing authority, responsible for planning and developing public residential towns.", context: "HDB is a major driver of sustainability in the built environment, implementing solar panels, green building standards (HDB Green Towns Programme), and sustainable estate management.", related: ["Solar Energy", "SolarNova", "Green Building", "Urban Heat Island"], source: "https://www.hdb.gov.sg", sourceLabel: "HDB", article: "" },
+  { term: "IEA", abbr: "International Energy Agency", cat: "Agencies", def: "An intergovernmental organisation that provides data, analysis, and policy recommendations on energy issues globally.", context: "Singapore aligns many of its energy transition plans with IEA analysis on pathways to net zero and the role of clean technologies.", related: ["Net Zero", "Renewable Energy", "Low-Carbon Hydrogen"], source: "https://www.iea.org", sourceLabel: "IEA", article: "" },
+  { term: "IPCC", abbr: "Intergovernmental Panel on Climate Change", cat: "Climate", def: "The UN body responsible for assessing the science related to climate change, providing reports that inform global climate policy.", context: "IPCC Assessment Reports directly influence Singapore's climate targets and risk assessments. The 1.5 degrees Celsius threshold drives Singapore's net zero ambitions.", related: ["Paris Agreement", "Net Zero", "Carbon Budget"], source: "https://www.ipcc.ch", sourceLabel: "IPCC", article: "" },
+  { term: "ISO 14001", abbr: "", cat: "ESG", def: "The international standard for environmental management systems, providing a framework for organisations to control their environmental impacts.", context: "Widely adopted by Singapore's industrial and manufacturing companies as part of ESG and procurement requirements.", related: ["Environmental Management Plan", "ESG Reporting", "ISO 50001"], source: "", sourceLabel: "", article: "" },
+  { term: "ISO 50001", abbr: "", cat: "Energy", def: "The international standard for energy management systems, providing a framework for continuous improvement of energy performance.", context: "Required for large energy users under Singapore's Energy Conservation Act. Certification demonstrates systematic energy management to regulators and stakeholders.", related: ["Energy Conservation Act", "Energy Management System", "SCEM", "Energy Audit"], source: "", sourceLabel: "", article: "" },
+  { term: "ISSB", abbr: "International Sustainability Standards Board", cat: "ESG", def: "The body established by IFRS Foundation to develop global baseline sustainability disclosure standards for capital markets.", context: "MAS has signalled adoption of ISSB's IFRS S1 (general sustainability disclosures) and S2 (climate-related disclosures) for Singapore financial institutions and listed companies.", related: ["MAS", "TCFD", "ESG Reporting", "SGX Sustainability Reporting"], source: "https://www.ifrs.org/groups/international-sustainability-standards-board", sourceLabel: "ISSB", article: "" },
+  { term: "Just Transition", abbr: "", cat: "Policy", def: "An approach to decarbonisation that ensures the shift to a low-carbon economy is fair and inclusive, protecting workers and communities most affected.", context: "Referenced in Singapore's Long-Term Low-Emissions Development Strategy, particularly in managing transitions for carbon-intensive industries and workers.", related: ["Decarbonisation", "Net Zero", "Singapore Green Plan 2030"], source: "", sourceLabel: "", article: "" },
+  { term: "Large Energy User", abbr: "LEU", cat: "Energy", def: "An organisation that consumes 54 terajoules (TJ) or more of energy per year, subject to mandatory requirements under Singapore's Energy Conservation Act.", context: "LEUs must appoint a SCEM, submit energy efficiency improvement plans, and conduct energy audits. EMA maintains a register of all LEUs in Singapore.", related: ["Energy Conservation Act", "SCEM", "EMA", "Energy Audit"], source: "https://www.ema.gov.sg", sourceLabel: "EMA", article: "" },
+  { term: "LEED", abbr: "Leadership in Energy and Environmental Design", cat: "Buildings", def: "A globally recognised green building certification system developed by the US Green Building Council.", context: "Some multinational tenants and developers in Singapore use LEED alongside or instead of Green Mark. BCA and LEED have mutual recognition arrangements.", related: ["Green Mark", "Green Building", "BCA"], source: "", sourceLabel: "", article: "" },
+  { term: "Life Cycle Assessment", abbr: "LCA", cat: "Carbon", def: "A method for evaluating the environmental impacts of a product or process across its entire life from raw material extraction to end of life.", context: "Used in Singapore's construction sector for whole-life carbon assessment of buildings, and by manufacturers reporting on product carbon footprints.", related: ["Embodied Carbon", "Whole-Life Carbon", "Carbon Offsets"], source: "", sourceLabel: "", article: "" },
+  { term: "Low-Carbon Hydrogen", abbr: "LCH", cat: "Energy", def: "Hydrogen produced with minimal greenhouse gas emissions, either from renewables (green hydrogen) or fossil fuels with carbon capture (blue hydrogen).", context: "Singapore's Low-Carbon Hydrogen Strategy targets hydrogen supplying up to 50% of power needs by 2050. Plans include import pipelines and ammonia co-firing at power plants.", related: ["Decarbonisation", "EDB", "EMA", "Green Shipping"], source: "https://www.ema.gov.sg", sourceLabel: "EMA", article: "" },
+  { term: "Mangroves", abbr: "", cat: "Climate", def: "Coastal forest ecosystems found in tropical and subtropical intertidal zones that store significant amounts of carbon and provide ecosystem services.", context: "Singapore has remnant mangrove areas at Sungei Buloh Wetland Reserve and other nature areas, protected under the Singapore Green Plan's City in Nature pillar.", related: ["Blue Carbon", "Nature-Based Solutions", "Biodiversity Net Gain"], source: "", sourceLabel: "", article: "" },
+  { term: "MAS", abbr: "Monetary Authority of Singapore", cat: "Agencies", def: "Singapore's central bank and integrated financial regulator, which also leads Singapore's sustainable finance agenda.", context: "MAS issues Environmental Risk Management guidelines for banks, insurers, and asset managers. Chairs the Green Finance Industry Taskforce (GFIT) and drives adoption of ISSB standards.", related: ["ESG Reporting", "ISSB", "Green Finance", "MAS EnRM"], source: "https://www.mas.gov.sg", sourceLabel: "MAS", article: "" },
+  { term: "MAS EnRM", abbr: "Environmental Risk Management Guidelines", cat: "Finance", def: "MAS guidelines requiring financial institutions to integrate environmental risk considerations into governance, risk management, and lending or investment decisions.", context: "Issued by MAS for banks, insurers, and asset managers in 2020. Requires climate scenario analysis, portfolio risk assessment, and disclosure.", related: ["MAS", "Climate Risk", "TCFD", "Green Finance"], source: "https://www.mas.gov.sg", sourceLabel: "MAS", article: "" },
+  { term: "Materiality Assessment", abbr: "", cat: "ESG", def: "A process to identify and prioritise the ESG topics most significant to a company and its stakeholders.", context: "Required for Singapore SGX sustainability reports. GRI double materiality and ISSB financial materiality represent two different approaches to defining what is material.", related: ["ESG Reporting", "GRI Standards", "Double Materiality", "Stakeholder Engagement"], source: "", sourceLabel: "", article: "" },
+  { term: "Minimum Energy Performance Standards", abbr: "MEPS", cat: "Energy", def: "Mandatory minimum efficiency requirements for energy-consuming products such as air conditioners, refrigerators, and lamps.", context: "Administered by NEA and BCA in Singapore. Periodically tightened to phase out less efficient products and drive market transformation.", related: ["NEA", "BCA", "Energy Efficiency"], source: "https://www.nea.gov.sg", sourceLabel: "NEA", article: "" },
+  { term: "MPA", abbr: "Maritime and Port Authority of Singapore", cat: "Agencies", def: "Singapore's regulatory authority for the port and maritime industry.", context: "MPA is leading Singapore's maritime decarbonisation agenda including green fuel bunkering, emissions reporting for vessels, and Singapore Green Shipping Corridors.", related: ["Green Shipping", "Low-Carbon Hydrogen", "Decarbonisation"], source: "https://www.mpa.gov.sg", sourceLabel: "MPA", article: "" },
+  { term: "Nature-Based Solutions", abbr: "NbS", cat: "Climate", def: "Actions that protect, sustainably manage, or restore natural ecosystems to address societal challenges including climate change.", context: "Singapore uses urban greenery, coastal mangroves, and green infrastructure as nature-based solutions for heat mitigation, biodiversity, and carbon storage.", related: ["Mangroves", "Blue Carbon", "Urban Heat Island", "Biodiversity Net Gain"], source: "", sourceLabel: "", article: "" },
+  { term: "NDC", abbr: "Nationally Determined Contribution", cat: "Policy", def: "A country's commitment to the Paris Agreement, outlining its planned emissions reductions and climate actions.", context: "Singapore's enhanced NDC targets a peak of 65 MtCO2e around 2030 and net zero by 2050, updated from earlier commitments under the Paris Agreement.", related: ["Paris Agreement", "UNFCCC", "Net Zero", "COP"], source: "", sourceLabel: "", article: "" },
+  { term: "NEA", abbr: "National Environment Agency", cat: "Agencies", def: "Singapore's key environmental regulator, responsible for carbon tax administration, waste management, and environmental protection.", context: "NEA administers the Carbon Pricing Act, collects carbon tax, manages waste and recycling programmes, and regulates haze pollution.", related: ["Carbon Tax", "Carbon Pricing Act", "Extended Producer Responsibility", "Zero Waste Masterplan"], source: "https://www.nea.gov.sg", sourceLabel: "NEA", article: "" },
+  { term: "Net Zero", abbr: "", cat: "Carbon", def: "A state where the greenhouse gases going into the atmosphere are balanced by equivalent removals from the atmosphere.", context: "Singapore targets net zero by 2050 under its Long-Term Low-Emissions Development Strategy (LEDS). This is a whole-economy target covering all sectors.", related: ["Carbon Neutral", "Decarbonisation", "Carbon Credits"], source: "https://www.nccs.gov.sg", sourceLabel: "NCCS", article: "" },
+  { term: "Net Zero Carbon Buildings", abbr: "NZCB", cat: "Buildings", def: "Buildings that achieve zero net carbon emissions from both embodied and operational energy across their lifecycle.", context: "BCA's Green Building MasterPlan sets a target for all new buildings to be net zero carbon from 2030, with Super Low Energy performance as an interim milestone.", related: ["Green Mark", "Super Low Energy", "Embodied Carbon", "Whole-Life Carbon"], source: "https://www.bca.gov.sg", sourceLabel: "BCA", article: "" },
+  { term: "Operational Carbon", abbr: "", cat: "Buildings", def: "Greenhouse gas emissions arising from the energy consumed by a building during its operation, including heating, cooling, lighting, and equipment.", context: "The primary focus of Singapore's Green Mark scheme. Measured through Energy Use Intensity (EUI) benchmarks by building type.", related: ["Energy Use Intensity", "Embodied Carbon", "Green Mark", "Whole-Life Carbon"], source: "", sourceLabel: "", article: "" },
+  { term: "Packaging Waste", abbr: "", cat: "Circular", def: "Waste generated from product packaging including plastic, paper, glass, and metal containers.", context: "Singapore's Mandatory Packaging Reporting scheme requires large producers and retailers to report packaging data and implement reduction plans. Phase 2 will introduce Extended Producer Responsibility.", related: ["Extended Producer Responsibility", "NEA", "Circular Economy", "Plastic Waste"], source: "https://www.nea.gov.sg", sourceLabel: "NEA", article: "" },
+  { term: "Paris Agreement", abbr: "", cat: "Policy", def: "The legally binding international treaty on climate change adopted at COP21 in December 2015, aiming to limit global warming to well below 2 degrees Celsius above pre-industrial levels.", context: "Singapore ratified the Paris Agreement in 2016. Singapore's NDC and net zero 2050 target are its commitments under this treaty.", related: ["NDC", "COP", "UNFCCC", "Net Zero"], source: "", sourceLabel: "", article: "" },
+  { term: "Physical Risk", abbr: "", cat: "Climate", def: "Risks arising from the physical impacts of climate change, including acute events (floods, storms) and chronic changes (sea level rise, temperature increase).", context: "Singapore's Coastal and Flood Protection Fund allocates S$100 billion over 100 years to address sea level rise. MAS requires financial institutions to assess physical risk exposure.", related: ["Climate Risk", "Transition Risk", "Sea Level Rise", "MAS EnRM"], source: "", sourceLabel: "", article: "" },
+  { term: "Plastic Waste", abbr: "", cat: "Circular", def: "Discarded plastic materials that enter the waste stream, including single-use items, packaging, and microplastics.", context: "Singapore recycles approximately 6% of plastic waste. NEA is studying EPR for packaging and working with industry on voluntary reduction initiatives.", related: ["Circular Economy", "Extended Producer Responsibility", "NEA", "Packaging Waste"], source: "https://www.nea.gov.sg", sourceLabel: "NEA", article: "" },
+  { term: "Power Purchase Agreement", abbr: "PPA", cat: "Energy", def: "A contract between an energy generator and a buyer for the supply of electricity at an agreed price over a fixed period.", context: "Singapore companies use corporate PPAs to procure renewable energy from solar farms, including overseas sources via ASEAN power interconnection.", related: ["Renewable Energy", "Solar Energy", "Renewable Energy Certificates"], source: "", sourceLabel: "", article: "" },
+  { term: "Power Usage Effectiveness", abbr: "PUE", cat: "Energy", def: "A measure of data centre energy efficiency, calculated as total facility energy divided by IT equipment energy. A PUE of 1.0 is perfect efficiency.", context: "Singapore's guidelines target a PUE of 1.3 or below for new data centres. IMDA and EMA have specific efficiency standards for the sector.", related: ["Data Centre Energy Efficiency", "EMA", "Energy Efficiency"], source: "", sourceLabel: "", article: "" },
+  { term: "PSI", abbr: "Pollutant Standards Index", cat: "Climate", def: "Singapore's air quality index measuring concentrations of five pollutants including particulate matter and sulphur dioxide.", context: "NEA publishes hourly PSI readings. During haze episodes from regional fires, PSI can reach hazardous levels with significant public health implications.", related: ["Haze", "NEA"], source: "https://www.nea.gov.sg", sourceLabel: "NEA", article: "" },
+  { term: "REDD+", abbr: "Reducing Emissions from Deforestation and Forest Degradation", cat: "Carbon", def: "A UN framework providing incentives to developing countries to reduce emissions from deforestation and invest in sustainable forest management.", context: "Relevant to Singapore companies purchasing forest carbon credits. Singapore and ASEAN neighbours are developing bilateral agreements for Article 6-aligned REDD+ credits.", related: ["Carbon Credits", "Article 6", "Nature-Based Solutions", "Blue Carbon"], source: "", sourceLabel: "", article: "" },
+  { term: "Recycling", abbr: "", cat: "Circular", def: "The process of converting waste materials into new materials and objects.", context: "Singapore's overall recycling rate is around 55%, but the domestic recycling rate is lower at approximately 13%. NEA runs the National Recycling Programme for households.", related: ["Circular Economy", "NEA", "Extended Producer Responsibility", "Zero Waste Masterplan"], source: "https://www.nea.gov.sg", sourceLabel: "NEA", article: "" },
+  { term: "Renewable Energy", abbr: "RE", cat: "Energy", def: "Energy from sources that are naturally replenished, such as solar, wind, hydropower, and geothermal.", context: "Singapore's renewable energy potential is largely limited to solar due to geography. The government is exploring low-carbon electricity imports from regional neighbours.", related: ["Solar Energy", "Power Purchase Agreement", "Renewable Energy Certificates", "EMA"], source: "https://www.ema.gov.sg", sourceLabel: "EMA", article: "" },
+  { term: "Renewable Energy Certificates", abbr: "RECs", cat: "Energy", def: "Market-based instruments that certify that one megawatt-hour of electricity was generated from a renewable energy source.", context: "Singapore companies use RECs (also called I-RECs) to make renewable energy claims for Scope 2 emissions reporting. EMA oversees the REC framework.", related: ["Renewable Energy", "Scope 2 Emissions", "Power Purchase Agreement", "ESG Reporting"], source: "https://www.ema.gov.sg", sourceLabel: "EMA", article: "" },
+  { term: "S-REITs", abbr: "Singapore Real Estate Investment Trusts", cat: "Finance", def: "Collective investment schemes that invest in income-producing real estate and are traded on the Singapore Exchange.", context: "S-REITs face specific ESG disclosure obligations under SGX guidelines, with particular emphasis on energy efficiency, Green Mark certifications, and carbon emissions from property portfolios.", related: ["ESG Reporting", "SGX Sustainability Reporting", "Green Mark", "Green Finance"], source: "https://www.sgx.com", sourceLabel: "SGX", article: "" },
+  { term: "Science-Based Targets", abbr: "SBTi", cat: "Carbon", def: "Emissions reduction targets aligned with the level of decarbonisation required to keep global warming below 1.5 or 2 degrees Celsius.", context: "A growing number of Singapore companies are committing to SBTi-validated targets as part of their net zero strategies and in response to investor expectations.", related: ["Net Zero", "Climate Transition Plan", "Scope 3 Emissions", "ESG Reporting"], source: "https://sciencebasedtargets.org", sourceLabel: "SBTi", article: "" },
+  { term: "SCEM", abbr: "Singapore Certified Energy Manager", cat: "Energy", def: "A professional certification for energy managers in Singapore, administered by EMA.", context: "Two levels: SCEM and SCEM (Registered). Large energy users under the Energy Conservation Act must appoint a registered SCEM to oversee energy management.", related: ["EMA", "Energy Conservation Act", "Energy Audit", "Large Energy User"], source: "https://www.ema.gov.sg", sourceLabel: "EMA", article: "" },
+  { term: "Scope 1 Emissions", abbr: "", cat: "Carbon", def: "Direct greenhouse gas emissions from sources owned or controlled by an organisation, such as fuel combustion and industrial processes.", context: "Covered by Singapore's carbon tax for facilities emitting 25,000 tCO2e or more per year. Companies must monitor and report Scope 1 emissions to NEA.", related: ["GHG Protocol", "Scope 2 Emissions", "Scope 3 Emissions", "Carbon Tax"], source: "", sourceLabel: "", article: "" },
+  { term: "Scope 2 Emissions", abbr: "", cat: "Carbon", def: "Indirect greenhouse gas emissions from the generation of purchased electricity, heat, or steam consumed by an organisation.", context: "Key metric for Singapore companies given high electricity consumption. EMA's Renewable Energy Certificates allow companies to make renewable electricity claims for Scope 2 reporting.", related: ["GHG Protocol", "Scope 1 Emissions", "Renewable Energy Certificates", "Carbon Tax"], source: "", sourceLabel: "", article: "" },
+  { term: "Scope 3 Emissions", abbr: "", cat: "Carbon", def: "All indirect greenhouse gas emissions in an organisation's value chain, including supply chain, employee travel, product use, and end-of-life disposal.", context: "Not directly subject to Singapore's carbon tax but increasingly required in ESG disclosures. Largest portion of most companies' carbon footprint. ISSB S2 requires Scope 3 disclosure.", related: ["GHG Protocol", "Scope 1 Emissions", "Science-Based Targets", "ESG Reporting"], source: "", sourceLabel: "", article: "" },
+  { term: "Sea Level Rise", abbr: "SLR", cat: "Climate", def: "The increase in global mean sea level due to thermal expansion of warming oceans and melting of ice sheets and glaciers.", context: "Singapore is particularly vulnerable as a low-lying island state. Projections suggest up to 1 metre rise by 2100. The S$100 billion Coastal and Flood Protection Fund addresses this.", related: ["Physical Risk", "Climate Risk", "Urban Heat Island"], source: "https://www.nccs.gov.sg", sourceLabel: "NCCS", article: "" },
+  { term: "Semakau Landfill", abbr: "", cat: "Circular", def: "Singapore's only landfill, an offshore engineered containment facility on a reclaimed island south of Singapore.", context: "At current fill rates, Semakau is expected to reach capacity around 2035. This urgency drives Singapore's Zero Waste Masterplan and circular economy ambitions.", related: ["Zero Waste Masterplan", "Circular Economy", "NEA", "Food Waste"], source: "https://www.nea.gov.sg", sourceLabel: "NEA", article: "" },
+  { term: "SGX Sustainability Reporting", abbr: "", cat: "ESG", def: "Mandatory annual sustainability reports required of all companies listed on the Singapore Exchange.", context: "Mandatory since FY2017. Climate-related disclosures (TCFD-aligned) phased in as mandatory from FY2022 for large-cap issuers, extending to all issuers by FY2025. ISSB S1/S2 adoption in progress.", related: ["ESG Reporting", "ESG", "TCFD", "ISSB", "GRI Standards"], source: "https://www.sgx.com", sourceLabel: "SGX", article: "" },
+  { term: "Singapore Green Plan 2030", abbr: "SGP30", cat: "Policy", def: "Singapore's national sustainability plan with concrete targets across five pillars: City in Nature, Sustainable Living, Energy Reset, Green Economy, and Resilient Future.", context: "Launched February 2021 as a whole-of-government movement with targets across every sector of Singapore's economy and society.", related: ["Net Zero", "Green Mark", "Solar Energy", "Circular Economy"], source: "https://www.greenplan.gov.sg", sourceLabel: "Green Plan", article: "" },
+  { term: "Singapore-Asia Taxonomy", abbr: "", cat: "Finance", def: "A classification system developed by MAS to define environmentally sustainable economic activities in Singapore and the Asia Pacific region.", context: "Designed to be interoperable with EU and ASEAN taxonomies. Covers eight focus sectors including energy, transport, and buildings. Guides green bond issuance and sustainable finance product labelling.", related: ["MAS", "Green Finance", "Green Bonds", "ESG Reporting"], source: "https://www.mas.gov.sg", sourceLabel: "MAS", article: "" },
+  { term: "SME", abbr: "Small and Medium Enterprise", cat: "Policy", def: "Businesses with annual sales turnover of not more than S$100 million or employment of not more than 200 workers.", context: "SMEs receive higher co-funding rates under Singapore's sustainability grants. For the EEG, SMEs qualify for up to 70% support versus 30% for non-SMEs.", related: ["Energy Efficiency Grant", "Enterprise Singapore"], source: "", sourceLabel: "", article: "" },
+  { term: "Solar Energy", abbr: "PV", cat: "Energy", def: "Electricity generated by converting sunlight into electrical energy using photovoltaic cells.", context: "Singapore targets at least 2 GWp of solar by 2030 under the Green Plan. Deployed on rooftops, reservoirs (floating solar), and vertical surfaces. The SolarNova programme aggregates public sector demand.", related: ["SolarNova", "Floating Solar", "Renewable Energy", "EMA"], source: "https://www.ema.gov.sg", sourceLabel: "EMA", article: "" },
+  { term: "SolarNova", abbr: "", cat: "Energy", def: "Singapore's programme to aggregate and accelerate solar deployment across public sector buildings and facilities.", context: "Managed by HDB and EDB. Tenders solar panels across government facilities in bulk, lowering costs and accelerating deployment towards the 2 GWp target.", related: ["Solar Energy", "HDB", "EDB", "Renewable Energy"], source: "", sourceLabel: "", article: "" },
+  { term: "Stakeholder Engagement", abbr: "", cat: "ESG", def: "The process of involving individuals or groups affected by an organisation's decisions in decision-making and reporting.", context: "Required as part of Singapore's SGX sustainability reporting. Stakeholder engagement informs the materiality assessment and shapes the ESG strategy.", related: ["Materiality Assessment", "ESG Reporting", "GRI Standards"], source: "", sourceLabel: "", article: "" },
+  { term: "Super Low Energy", abbr: "SLE", cat: "Buildings", def: "A BCA recognition programme for buildings that achieve at least 60% improvement in energy efficiency compared to 2005 building codes.", context: "The most demanding energy performance category below Platinum Green Mark (PSLE). Key target for public sector buildings. SLE buildings consume less than 65 kWh per square metre per year.", related: ["Green Mark", "Energy Use Intensity", "BCA", "Net Zero Carbon Buildings"], source: "https://www.bca.gov.sg", sourceLabel: "BCA", article: "" },
+  { term: "Supply Chain Emissions", abbr: "", cat: "Carbon", def: "Greenhouse gas emissions generated across an organisation's supply chain, from raw material extraction to product delivery.", context: "A subset of Scope 3 emissions. Singapore companies are under increasing pressure from global customers to disclose and reduce supply chain emissions.", related: ["Scope 3 Emissions", "GHG Protocol", "Science-Based Targets", "ESG Reporting"], source: "", sourceLabel: "", article: "" },
+  { term: "Sustainability-Linked Loans", abbr: "SLL", cat: "Finance", def: "Loan facilities where the interest rate is tied to the borrower's performance against predetermined sustainability targets.", context: "Growing product in Singapore's banking sector. MAS's sustainable finance frameworks and green finance incentives have accelerated SLL adoption among Singapore corporates.", related: ["Green Finance", "Green Bonds", "MAS", "ESG Reporting"], source: "https://www.mas.gov.sg", sourceLabel: "MAS", article: "" },
+  { term: "Sustainability Reporting", abbr: "", cat: "ESG", def: "The practice of publicly disclosing an organisation's environmental, social, and governance performance and impacts.", context: "Mandatory for SGX-listed companies. Increasingly expected by banks, investors, and large corporate buyers from their Singapore supply chain partners.", related: ["ESG Reporting", "GRI Standards", "TCFD", "ISSB"], source: "", sourceLabel: "", article: "" },
+  { term: "TCFD", abbr: "Task Force on Climate-related Financial Disclosures", cat: "ESG", def: "A framework for consistent climate-related financial risk disclosures developed by the Financial Stability Board.", context: "Adopted by SGX as the basis for mandatory climate disclosures for listed companies. MAS requires TCFD alignment from financial institutions. Being superseded by ISSB S2.", related: ["ISSB", "ESG Reporting", "Climate Risk", "MAS EnRM"], source: "https://www.fsb-tcfd.org", sourceLabel: "TCFD", article: "" },
+  { term: "Transboundary Haze Pollution Act", abbr: "", cat: "Policy", def: "Singapore legislation creating civil and criminal liability for entities responsible for fires that cause haze pollution in Singapore.", context: "Enacted in 2014, allowing Singapore to prosecute companies that cause or contribute to transboundary haze. Applies even to entities outside Singapore's jurisdiction.", related: ["Haze", "NEA", "PSI"], source: "", sourceLabel: "", article: "" },
+  { term: "Transition Risk", abbr: "", cat: "Climate", def: "Risks arising from the transition to a low-carbon economy, including policy changes, technology shifts, and changes in market preferences.", context: "Carbon-intensive Singapore businesses face significant transition risks as carbon taxes rise. MAS requires financial institutions to assess transition risk exposure in their loan and investment portfolios.", related: ["Climate Risk", "Physical Risk", "Carbon Tax", "MAS EnRM"], source: "", sourceLabel: "", article: "" },
+  { term: "UNFCCC", abbr: "United Nations Framework Convention on Climate Change", cat: "Policy", def: "The international treaty adopted in 1992 that established the framework for international climate negotiations.", context: "Singapore is a party to the UNFCCC and participates actively in negotiations. National communications and biennial update reports are submitted to the UNFCCC.", related: ["Paris Agreement", "COP", "NDC"], source: "https://unfccc.int", sourceLabel: "UNFCCC", article: "" },
+  { term: "URA", abbr: "Urban Redevelopment Authority", cat: "Agencies", def: "Singapore's land use planning and conservation authority, responsible for planning Singapore's physical environment.", context: "URA's Master Plan incorporates sustainability goals including green spaces, mixed-use development, active mobility corridors, and building height controls for solar access.", related: ["Singapore Green Plan 2030", "Urban Heat Island", "Green Corridors"], source: "https://www.ura.gov.sg", sourceLabel: "URA", article: "" },
+  { term: "Urban Heat Island", abbr: "UHI", cat: "Climate", def: "The phenomenon where urban areas experience higher temperatures than surrounding rural areas due to human activities and reduced vegetation.", context: "Singapore experiences significant UHI effects due to its dense urban fabric and tropical climate. BCA, HDB, and NParks are implementing green roofs, vertical greenery, and shading strategies.", related: ["Nature-Based Solutions", "Green Corridors", "Biodiversity Net Gain", "BCA"], source: "", sourceLabel: "", article: "" },
+  { term: "Value Chain Emissions", abbr: "", cat: "Carbon", def: "All greenhouse gas emissions associated with a company's activities both upstream and downstream in its supply and distribution chain.", context: "Equivalent to Scope 3 emissions under the GHG Protocol. Required in ISSB S2 disclosures for companies with significant value chain emission exposure.", related: ["Scope 3 Emissions", "Supply Chain Emissions", "GHG Protocol"], source: "", sourceLabel: "", article: "" },
+  { term: "Verra VCS", abbr: "Verified Carbon Standard", cat: "Carbon", def: "The world's most widely used voluntary greenhouse gas crediting programme, certifying carbon credits from a wide range of project types.", context: "VCS-certified credits are among eligible offset types under Singapore's carbon tax offset mechanism, subject to NEA quality criteria.", related: ["Carbon Credits", "Gold Standard", "Voluntary Carbon Market"], source: "https://verra.org", sourceLabel: "Verra", article: "" },
+  { term: "Voluntary Carbon Market", abbr: "VCM", cat: "Carbon", def: "The market for the voluntary purchase and sale of carbon credits outside of mandatory compliance schemes.", context: "Singapore aims to be a leading voluntary carbon market hub in Asia. Climate Impact X (CIX), a carbon exchange, was launched in Singapore in 2021 by major local institutions.", related: ["Carbon Credits", "Verra VCS", "Gold Standard", "Article 6"], source: "", sourceLabel: "", article: "" },
+  { term: "Waste-to-Energy", abbr: "WTE", cat: "Circular", def: "The process of generating energy in the form of electricity or heat from the incineration of waste materials.", context: "Singapore incinerated approximately 50% of its solid waste in 2022 for energy recovery. Tuas Nexus is Asia's first integrated waste management and water reclamation facility.", related: ["Circular Economy", "NEA", "Zero Waste Masterplan", "Semakau Landfill"], source: "https://www.nea.gov.sg", sourceLabel: "NEA", article: "" },
+  { term: "Water Recycling", abbr: "NEWater", cat: "Circular", def: "Treated wastewater purified to drinking water standards through advanced membrane and ultraviolet technologies.", context: "Singapore's NEWater programme, managed by PUB, produces up to 40% of Singapore's water needs from reclaimed water, reducing dependence on imported water.", related: ["Circular Economy"], source: "https://www.pub.gov.sg", sourceLabel: "PUB", article: "" },
+  { term: "Whole-Life Carbon", abbr: "WLC", cat: "Buildings", def: "The total greenhouse gas emissions from a building across its entire lifecycle, including embodied carbon from construction and operational carbon during use.", context: "BCA is developing Whole-Life Carbon assessment frameworks as part of the net zero buildings agenda, recognising that embodied carbon is significant for Singapore's construction sector.", related: ["Embodied Carbon", "Operational Carbon", "Net Zero Carbon Buildings", "Life Cycle Assessment"], source: "https://www.bca.gov.sg", sourceLabel: "BCA", article: "" },
+  { term: "Zero Waste Masterplan", abbr: "", cat: "Circular", def: "Singapore's plan to reduce waste sent to landfill by 30% per capita per day by 2030 and work towards a zero waste nation.", context: "Launched by NEA in 2019. Focuses on three priority waste streams: food waste, e-waste, and packaging including plastics. Connected to the Circular Economy Strategy.", related: ["Circular Economy", "NEA", "Semakau Landfill", "Extended Producer Responsibility"], source: "https://www.nea.gov.sg", sourceLabel: "NEA", article: "" },
+];
+
+TERMS.sort((a, b) => a.term.localeCompare(b.term));
+document.getElementById('total-count').textContent = TERMS.length;
+
+let activeCategory = 'All';
+
+function slugify(term) {
+  return term.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+}
+
+function setCategory(cat, btn) {
+  activeCategory = cat;
+  document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  filterGlossary();
+}
+
+function filterGlossary() {
+  renderGlossary();
+}
+
+function scrollToLetter(letter) {
+  const el = document.getElementById('letter-' + letter);
+  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function scrollToTerm(slug) {
+  const el = document.getElementById('term-' + slug);
+  if (el) {
+    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    el.style.background = '#E1F5EE';
+    setTimeout(() => el.style.background = '', 1200);
+  }
+}
+
+function renderGlossary() {
+  const query = document.getElementById('search-input').value.toLowerCase().trim();
+  const filtered = TERMS.filter(t => {
+    const matchCat = activeCategory === 'All' || t.cat === activeCategory;
+    const matchSearch = !query ||
+      t.term.toLowerCase().includes(query) ||
+      t.abbr.toLowerCase().includes(query) ||
+      t.def.toLowerCase().includes(query) ||
+      t.context.toLowerCase().includes(query) ||
+      t.cat.toLowerCase().includes(query);
+    return matchCat && matchSearch;
+  });
+
+  document.getElementById('result-count').textContent = filtered.length + ' of ' + TERMS.length + ' terms';
+
+  const byLetter = {};
+  filtered.forEach(t => {
+    const l = t.term[0].toUpperCase();
+    if (!byLetter[l]) byLetter[l] = [];
+    byLetter[l].push(t);
+  });
+
+  const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+  const allLetters = new Set(TERMS.map(t => t.term[0].toUpperCase()));
+
+  document.getElementById('alpha-bar').innerHTML = letters.map(l => {
+    const hasFiltered = byLetter[l]?.length > 0;
+    const hasAny = allLetters.has(l);
+    const cls = hasFiltered ? 'alpha-btn has-terms' : (hasAny ? 'alpha-btn inactive' : 'alpha-btn inactive');
+    const onclick = hasFiltered ? `onclick="scrollToLetter('${l}')"` : '';
+    return `<button class="${cls}" ${onclick}>${l}</button>`;
+  }).join('');
+
+  const main = document.getElementById('glossary-main');
+
+  if (filtered.length === 0) {
+    main.innerHTML = `<div class="no-results"><p style="font-size:32px; margin-bottom:12px;">&#x1F50D;</p><p style="font-size:16px; color:var(--ink-mid);">No terms found. Try a different search or <a href="/advisor.html" style="color:var(--green-mid);">ask the AI Advisor</a>.</p></div>`;
+    return;
+  }
+
+  main.innerHTML = Object.keys(byLetter).sort().map(letter => {
+    const terms = byLetter[letter];
+    return `<div class="letter-section" id="letter-${letter}">
+      <div class="letter-heading">${letter}</div>
+      ${terms.map(t => {
+        const slug = slugify(t.term);
+        const relatedHTML = (t.related || []).filter(r => r).map(r => {
+          const rslug = slugify(r);
+          const exists = TERMS.find(x => x.term === r);
+          return exists
+            ? `<button class="related-chip" onclick="scrollToTerm('${rslug}')">${r}</button>`
+            : `<span class="related-chip" style="opacity:0.5; cursor:default;">${r}</span>`;
+        }).join('');
+
+        const sourceLink = t.source ? `<a class="term-link source" href="${t.source}" target="_blank" rel="noopener">${t.sourceLabel || 'Source'} &#8599;</a>` : '';
+        const articleLink = t.article ? `<a class="term-link article" href="${t.article}" target="_blank" rel="noopener">Read article</a>` : '';
+
+        return `<div class="term-card" id="term-${slug}">
+          <div class="term-header">
+            <div style="flex:1;">
+              <div class="term-name">${t.term}</div>
+              ${t.abbr ? `<div class="term-abbr">${t.abbr}</div>` : ''}
+            </div>
+            <span class="cat-tag cat-${t.cat}">${t.cat}</span>
+          </div>
+          <div class="term-def">${t.def}</div>
+          <div class="term-context">${t.context}</div>
+          ${(relatedHTML || sourceLink || articleLink) ? `<div class="term-footer">
+            ${relatedHTML ? `<span class="related-label">See also</span>${relatedHTML}` : ''}
+            ${(sourceLink || articleLink) ? `<div class="term-links">${sourceLink}${articleLink}</div>` : ''}
+          </div>` : ''}
+        </div>`;
+      }).join('')}
+    </div>`;
+  }).join('');
+}
+
+renderGlossary();
+
+// Handle direct anchor links
+if (window.location.hash) {
+  setTimeout(() => {
+    const el = document.querySelector(window.location.hash);
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 300);
+}
+</script>
+</body>
+</html>
