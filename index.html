@@ -924,33 +924,76 @@ async function cwSend() {
   input.focus();
 }
 
-// Fetch latest Substack posts via RSS
+// Fetch latest Substack posts — tries direct RSS first, falls back to rss2json
 async function loadSubstackPosts() {
   const container = document.getElementById('substack-posts');
-  try {
-    const rss = 'https://sustainabilitysg.substack.com/feed';
-    const api = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rss)}&count=3`;
-    const res = await fetch(api);
-    const data = await res.json();
+  const substackUrl = 'https://sustainabilitysg.substack.com';
+  const rssUrl = substackUrl + '/feed';
 
-    if (data.status !== 'ok' || !data.items?.length) {
-      container.innerHTML = '<div class="post-error">No posts yet. <a href="https://sustainabilitysg.substack.com" target="_blank" rel="noopener" style="color:#1D9E75;">Visit Substack</a> to read the latest.</div>';
+  function renderPosts(items) {
+    if (!items || !items.length) {
+      container.innerHTML = `<div class="post-error">No posts yet. <a href="${substackUrl}" target="_blank" rel="noopener" style="color:#1D9E75;">Visit Substack →</a></div>`;
       return;
     }
-
-    container.innerHTML = data.items.map(post => {
-      const date = new Date(post.pubDate).toLocaleDateString('en-SG', { day: 'numeric', month: 'short', year: 'numeric' });
-      const desc = post.description?.replace(/<[^>]+>/g, '').slice(0, 120) + '...';
+    container.innerHTML = items.slice(0, 3).map(post => {
+      const title = post.title || '';
+      const link  = post.link  || post.url || substackUrl;
+      const raw   = post.description || post.content || post.summary || '';
+      const desc  = raw.replace(/<[^>]+>/g, '').trim().slice(0, 120) + (raw.length > 120 ? '…' : '');
+      const date  = post.pubDate || post.published || post.isoDate || '';
+      const dateStr = date ? new Date(date).toLocaleDateString('en-SG', { day: 'numeric', month: 'short', year: 'numeric' }) : '';
       return `
-        <a href="${post.link}" target="_blank" rel="noopener" class="insight-post">
-          <div class="insight-post-date">${date}</div>
-          <div class="insight-post-title">${post.title}</div>
-          <div class="insight-post-desc">${desc}</div>
+        <a href="${link}" target="_blank" rel="noopener" class="insight-post">
+          ${dateStr ? `<div class="insight-post-date">${dateStr}</div>` : ''}
+          <div class="insight-post-title">${title}</div>
+          ${desc ? `<div class="insight-post-desc">${desc}</div>` : ''}
         </a>`;
     }).join('');
+  }
 
+  function showFallback() {
+    container.innerHTML = `<div class="post-error">Could not load posts. <a href="${substackUrl}" target="_blank" rel="noopener" style="color:#1D9E75;">Visit Substack directly →</a></div>`;
+  }
+
+  // Strategy 1: direct RSS fetch + DOM parse (Substack sets CORS headers)
+  async function tryDirectRSS() {
+    const ctrl = new AbortController();
+    const t = setTimeout(() => ctrl.abort(), 5000);
+    const res = await fetch(rssUrl, { signal: ctrl.signal });
+    clearTimeout(t);
+    if (!res.ok) throw new Error('RSS fetch failed');
+    const xml = await res.text();
+    const doc = new DOMParser().parseFromString(xml, 'text/xml');
+    const items = [...doc.querySelectorAll('item')].map(el => ({
+      title:       el.querySelector('title')?.textContent || '',
+      link:        el.querySelector('link')?.textContent  || el.querySelector('link')?.getAttribute('href') || '',
+      pubDate:     el.querySelector('pubDate')?.textContent || '',
+      description: el.querySelector('description')?.textContent || ''
+    }));
+    if (!items.length) throw new Error('No items');
+    renderPosts(items);
+  }
+
+  // Strategy 2: rss2json as fallback
+  async function tryRss2Json() {
+    const api = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssUrl)}&count=3`;
+    const ctrl = new AbortController();
+    const t = setTimeout(() => ctrl.abort(), 6000);
+    const res = await fetch(api, { signal: ctrl.signal });
+    clearTimeout(t);
+    const data = await res.json();
+    if (data.status !== 'ok' || !data.items?.length) throw new Error('rss2json returned no items');
+    renderPosts(data.items);
+  }
+
+  try {
+    await tryDirectRSS();
   } catch {
-    container.innerHTML = '<div class="post-error">Could not load posts. <a href="https://sustainabilitysg.substack.com" target="_blank" rel="noopener" style="color:#1D9E75;">Visit Substack directly →</a></div>';
+    try {
+      await tryRss2Json();
+    } catch {
+      showFallback();
+    }
   }
 }
 
